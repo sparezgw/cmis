@@ -15,4 +15,13 @@ class Check extends Controller {
 		$f3->set('pageTitle', '支票信息');
 		$f3->set('pageContent', 'check/_edit.html');
 	}
+
+	function post($f3) {
+		# code...
+	}
+
+	function table($f3) {
+		$f3->set('pageTitle', '支票列表');
+		$f3->set('pageContent', 'check/_list.html');
+	}
 }

@@ -2,6 +2,9 @@ body {
   padding-top: 70px;
   font-family: "微软雅黑";
 }
+h1, h2, h3, h4 {
+  font-family: "黑体";
+}
 footer {
   padding: 30px 0;
 }
@@ -42,4 +45,8 @@ footer {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.newrow  > tbody > tr:last-child > th {
+  vertical-align: middle;
 }
