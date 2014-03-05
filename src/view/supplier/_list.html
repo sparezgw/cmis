@@ -1,4 +1,6 @@
-      <h2>{{ @pageTitle }}</h2>
+      <div class="page-header">
+        <h1>{{ @pageTitle }}</h1>
+      </div>
       <table class="table table-hover newrow">
         <thead>
           <tr>
@@ -9,31 +11,21 @@
           </tr>
         </thead>
         <tbody>
+          <repeat group="{{ @ss }}" value="{{ @s }}">
           <tr>
-            <th><a href="s/1">1</a></th>
-            <td>天津鸿阳嘉业科技有限公司</td>
-            <td>鸿阳嘉业</td>
-            <td>打印机耗材</td>
+            <th><a href="s/{{ @s.sID }}">{{ @s.sID }}</a></th>
+            <td>{{ @s.fullname }}</td>
+            <td>{{ @s.name }}</td>
+            <td>{{ @s.memo }}</td>
           </tr>
+          </repeat>
           <tr>
-            <th><a href="s/3">3</a></th>
-            <td>天津市仁和办公设备有限公司</td>
-            <td>仁和办公</td>
-            <td>日本京瓷天津总代理，复印机维修，耗材购买</td>
-          </tr>
-          <tr>
-            <th><a href="s/16">16</a></th>
-            <td>中国联合通信有限公司天津分公司</td>
-            <td>天津联通</td>
-            <td>光纤网络服务</td>
-          </tr>
-          <tr>
-            <form>
-            <th>NEW</th>
-            <td><input type="text" class="form-control" name="fullname" placeholder="供应商全称"></td>
-            <td><input type="text" class="form-control" name="name" placeholder="简称"></td>
+          <form method="post">
+            <th><input class="btn btn-primary btn-sm" type="submit" value="NEW" /></th>
+            <td><input type="text" class="form-control" name="fullname" placeholder="供应商全称" required></td>
+            <td><input type="text" class="form-control" name="name" placeholder="简称" required></td>
             <td><input type="text" class="form-control" name="memo" placeholder="备注"></td>
-            </form>
+          </form>
           </tr>
         </tbody>
       </table>

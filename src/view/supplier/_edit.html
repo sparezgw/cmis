@@ -1,40 +1,35 @@
-      <h2>{{ @pageTitle }}</h2><br />
-      <form class="form-horizontal" role="form">
+      <div class="page-header">
+        <h1>{{ @pageTitle }}</h1>
+      </div>
+      <form class="form-horizontal rest" role="form" method="post">
         <div class="form-group">
-          <label for="checkno" class="col-sm-1 control-label">支票号</label>
+          <label for="fullname" class="col-sm-2 control-label">供应商全称</label>
           <div class="col-sm-5">
-            <input type="text" class="form-control" name="checkno" placeholder="支票号">
+            <input type="text" class="form-control" name="fullname" value="{{ @s.fullname }}" required>
           </div>
-          <label for="invoicedate" class="col-sm-1 control-label">开票日期</label>
-          <div class="col-sm-5">
-            <input type="date" class="form-control" name="invoicedate">
+          <label for="name" class="col-sm-1 control-label">简称</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="name" value="{{ @s.name }}" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="memo" class="col-sm-2 control-label">备注</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" rows="3" name="memo">{{ @s.memo }}</textarea>
           </div>
         </div>
         <div class="form-group">
-          <label for="money" class="col-sm-1 control-label">金额</label>
-          <div class="col-sm-5">
-            <input type="number" class="form-control" name="money" placeholder="金额">
+          <input type="hidden" name="_method" value="" />
+          <div class="col-sm-offset-6 col-sm-2">
+            <a type="button" href="/s" class="btn btn-default btn-block">返回</a>
           </div>
-          <label for="supplier" class="col-sm-1 control-label">供应商</label>
-          <div class="col-sm-5">
-            <select class="form-control" name="supplier">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+          <div class="col-sm-2">
+            <button type="button" name="delete" class="btn btn-danger btn-block">删除</button>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="memo" class="col-sm-1 control-label">备注</label>
-          <div class="col-sm-11">
-            <textarea class="form-control" rows="3" name="memo" placeholder="备注"></textarea>
+          <div class="col-sm-2">
+            <button type="button" name="post" class="btn btn-primary btn-block">保存</button>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-10 col-sm-2">
-            <button type="submit" name="edit" class="btn btn-primary btn-block">保存</button>
-          </div>
+
         </div>
       </form>

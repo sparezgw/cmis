@@ -4,21 +4,54 @@
 */
 class Supplier extends Controller {
 
-	protected $supplier;
+	protected $s;
 
 	function __construct() {
 		parent::__construct();
-		$this->supplier = new DB\SQL\Mapper($this->db,'suppliers');
+		$this->s = new DB\SQL\Mapper($this->db,'suppliers');
 	}
 
 	function get($f3) {
-		$f3->set('pageTitle', '新供应商');
-		$f3->set('pageContent', 'supplier/_edit.html');
+		$s = $this->s;
+		$sid = $f3->get('PARAMS.sid');
+		if (empty($sid)) {
+			$ss = $s->find(); //所有供应商数据
+			$f3->set('ss', $ss);
+			$f3->set('pageTitle', '供应商列表');
+			$f3->set('pageContent', 'supplier/_list.html');
+		} else {
+			$s->load(array('sID=?', $sid));
+			if ($s->dry()) {
+				$f3->error(404);
+				die;
+			} else {
+				$s->copyto('s');
+			}
+			$f3->set('pageTitle', '供应商明细');
+			$f3->set('pageContent', 'supplier/_edit.html');
+		}
+
 	}
 
-	function table($f3) {
-		$f3->set('pageTitle', '供应商列表');
-		$f3->set('pageContent', 'supplier/_list.html');
+	function post($f3) {
+		$s = $this->s;
+		$sid = $f3->get('PARAMS.sid');
+		if (!empty($sid)) $s->load(array('sID=?', $sid));
+		$s->copyFrom('POST');
+		$s->save();
+
+		$f3->reroute('/s');
 	}
+
+	function delete($f3) {
+	    $s = $this->s;
+		$sid = $f3->get('PARAMS.sid');
+		if (!empty($sid)) $s->load(array('sID=?', $sid));
+		else $f3->error(404);
+		$s->erase();
+
+		$f3->reroute('/s');
+	}
+
 }
 ?>

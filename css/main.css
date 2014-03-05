@@ -1,6 +1,7 @@
 body {
-  padding-top: 70px;
+  padding-top: 40px;
   font-family: "微软雅黑";
+  /*font-size: 14px;*/
 }
 h1, h2, h3, h4 {
   font-family: "黑体";
@@ -13,7 +14,10 @@ footer {
   max-width: 330px;
   margin: 0 auto;
 }
-.login .login-heading,
+.login .page-header {
+  border: none;
+  padding-bottom: 0px;
+}
 .login .checkbox {
   margin-bottom: 10px;
 }

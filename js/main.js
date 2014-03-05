@@ -10,3 +10,9 @@ $(".login").submit(function(event) {
 $(".login > input").focus(function() {
   $("#error").hide('2000');
 });
+
+$(".rest button").click(function() {
+	$attr = $(this).attr('name').toUpperCase();
+	$("input[name='_method']").attr('value', $attr);
+	$(".rest").submit();
+});
