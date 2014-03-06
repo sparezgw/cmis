@@ -1,0 +1,35 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}
+          <a type="button" href="/i" class="btn btn-primary navbar-right">
+            <span class="glyphicon glyphicon-plus"></span> 新增
+          </a>
+        </h1>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>#</th>
+            <th>名称</th>
+            <th>类别</th>
+            <th>品牌</th>
+            <th>型号</th>
+            <th>单位</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <repeat group="{{ @items }}" value="{{ @i }}">
+          <tr>
+            <td><a href="#" class="btnTabDel" data-id="{{ @i.iID }}"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
+            <th><a href="i/{{ @i.iID }}">{{ @i.iID }}</a></th>
+            <td>{{ @i.name }}</td>
+            <td>{{ @its[@i.tID] }}</td>
+            <td>{{ @i.brand }}</td>
+            <td>{{ @i.type }}</td>
+            <td>{{ @i.unit }}</td>
+            <td>{{ @i.memo }}</td>
+          </tr>
+          </repeat>
+        </tbody>
+      </table>
