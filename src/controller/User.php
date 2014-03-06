@@ -14,8 +14,12 @@ class User extends Controller {
 	function beforeroute($f3) {}
 
 	function get($f3) {
-		$f3->set('pageTitle', '登录');
-		$f3->set('pageContent', 'user/_login.html');
+		$f3->set('page', 
+				array(
+					"title"=>"登录",
+					"view"=>"user/_login.html"
+				)
+			);
 	}
 
 	function post($f3) {

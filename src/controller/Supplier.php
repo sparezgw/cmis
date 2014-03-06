@@ -17,18 +17,22 @@ class Supplier extends Controller {
 		if (empty($sid)) {
 			$ss = $s->find(); //所有供应商数据
 			$f3->set('ss', $ss);
-			$f3->set('pageTitle', '供应商列表');
-			$f3->set('pageContent', 'supplier/_list.html');
+			$f3->set('page', 
+				array(
+					"title"=>"供应商列表",
+					"view"=>"supplier/_list.html"
+				)
+			);
 		} else {
 			$s->load(array('sID=?', $sid));
-			if ($s->dry()) {
-				$f3->error(404);
-				die;
-			} else {
-				$s->copyto('s');
-			}
-			$f3->set('pageTitle', '供应商明细');
-			$f3->set('pageContent', 'supplier/_edit.html');
+			if ($s->dry()) $f3->error(404);
+			else $s->copyto('s');
+			$f3->set('page', 
+				array(
+					"title"=>"供应商明细",
+					"view"=>"supplier/_edit.html"
+				)
+			);
 		}
 
 	}
