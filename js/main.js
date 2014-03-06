@@ -3,7 +3,7 @@ $(".login").submit(function(event) {
   $.post('user/login', $(this).serialize(), function(data) {
     if(data != "false")
       $("#error").html("<strong>错误！</strong>"+data).show('slow');
-    else location.href="home";  
+    else location.href="/home";  
   });
 });
 

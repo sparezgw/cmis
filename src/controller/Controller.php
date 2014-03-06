@@ -4,11 +4,20 @@
 */
 class Controller {
 
-	protected $db;
+	protected $db, $logs, $l;
 
 	function __construct() {
 		$f3=Base::instance();
 		$this->db = new DB\SQL($f3->get('db'), $f3->get('db_user'), $f3->get('db_pwd'));
+		$this->logs = new DB\SQL\Mapper($this->db,'logs');
+		$uid = $f3->get('SESSION.UUID');
+		$this->l = array(
+			"save"=>false,
+			"uid"=>$uid,
+			"table"=>"",
+			"op"=>"",
+			"opID"=>0
+		);
 	}
 
 	function beforeroute($f3) {
@@ -19,8 +28,15 @@ class Controller {
 	function afterroute($f3) {
 		if ($f3->get('json'))
 			echo $f3->get('msg');
-		else
+		else {
+			if($this->l['save']) {
+				$this->logs->copyFrom($this->l);
+				$this->logs->save();
+			}
+			$this->l['save'] = false;
+			$f3->set('l',$this->l['uid']);
 			echo Template::instance()->render('layout.html');
+		}
 	}
 
 }

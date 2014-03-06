@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.4
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 06 日 01:57
--- 服务器版本: 5.5.28
--- PHP 版本: 5.4.24
+-- 生成日期: 2014 年 03 月 06 日 10:03
+-- 服务器版本: 5.6.12-log
+-- PHP 版本: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `cmis`
 --
+CREATE DATABASE IF NOT EXISTS `cmis` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `cmis`;
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,14 @@ CREATE TABLE IF NOT EXISTS `items` (
   `tID` tinyint(3) unsigned DEFAULT NULL COMMENT '货物类别ID',
   `memo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`iID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='货物表' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='货物表' AUTO_INCREMENT=7 ;
+
+--
+-- 转存表中的数据 `items`
+--
+
+INSERT INTO `items` (`iID`, `name`, `brand`, `type`, `unit`, `amount`, `tID`, `memo`) VALUES
+(6, '硒鼓', 'HP', '88A', '个', 0, 1, '打印机原装硒鼓fff');
 
 -- --------------------------------------------------------
 
@@ -183,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `suppliers` (
 INSERT INTO `suppliers` (`sID`, `fullname`, `name`, `memo`) VALUES
 (1, '天津鸿阳嘉业科技有限公司', '鸿阳嘉业', '打印机耗材'),
 (5, '中国联合通信有限公司天津分公司', '天津联通', '光纤网络服务'),
-(6, '天津市仁和办公设备有限公司', '仁和办公', '日本京瓷天津总代理，复印机维修，耗材购买');
+(6, '天津市仁和办公设备有限公司', '仁和办公', '日本京瓷天津总代理，复印机维修，耗材购买dfdfddfdfdfd');
 
 -- --------------------------------------------------------
 

@@ -9,6 +9,7 @@ class Supplier extends Controller {
 	function __construct() {
 		parent::__construct();
 		$this->s = new DB\SQL\Mapper($this->db,'suppliers');
+		$this->l['table'] = "supplier";
 	}
 
 	function get($f3) {
@@ -43,6 +44,9 @@ class Supplier extends Controller {
 		if (!empty($sid)) $s->load(array('sID=?', $sid));
 		$s->copyFrom('POST');
 		$s->save();
+		$this->l['save'] = true;
+		$this->l['op'] = "post";
+		$this->l['opID'] = 123;
 
 		$f3->reroute('/s');
 	}
