@@ -31,10 +31,13 @@ class User extends Controller {
 
 		if(empty($u->uID)) $msg = "用户名不存在。";
 
-		else if ($pwd != $u->passwd) $msg = "密码输入有误。";
+		elseif ($pwd != $u->passwd) $msg = "密码输入有误。";
+
+		elseif ($u->role == 0) $msg = "对不起您没有登录权限。";
 
 		else { 
 			$f3->set('SESSION.UUID', $u->uID);
+			$f3->set('SESSION.ROLE', $u->role);
 			// $f3->set('SESSION.PID', $u->pID);
 			$msg = "false";
 		}

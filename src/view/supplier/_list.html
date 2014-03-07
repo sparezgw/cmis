@@ -4,7 +4,14 @@
       <table class="table table-hover newrow">
         <thead>
           <tr>
+          <check if="{{ @SESSION.ROLE>=4 }}">
+            <true>
+            <th></th>
+            </true>
+            <false>
             <th>#</th>
+            </false>
+          </check>
             <th>供应商全称</th>
             <th>简称</th>
             <th>备注</th>
@@ -13,12 +20,20 @@
         <tbody>
           <repeat group="{{ @ss }}" value="{{ @s }}">
           <tr>
-            <th><a href="s/{{ @s.sID }}">{{ @s.sID }}</a></th>
+          <check if="{{ @SESSION.ROLE>=4 }}">
+            <true>
+            <td><a class="ico-lg" href="s/{{ @s.sID }}"><span class="glyphicon glyphicon-ok-sign text-success"></span></a></td>
+            </true>
+            <false>
+            <th>{{ @s.sID }}</th>
+            </false>
+          </check>
             <td>{{ @s.fullname }}</td>
             <td>{{ @s.name }}</td>
             <td>{{ @s.memo }}</td>
           </tr>
           </repeat>
+          <check if="{{ @SESSION.ROLE >= 4 }}">
           <tr>
           <form method="post">
             <th><input class="btn btn-primary btn-sm" type="submit" value="NEW" /></th>
@@ -27,5 +42,6 @@
             <td><input type="text" class="form-control" name="memo" placeholder="备注"></td>
           </form>
           </tr>
+          </check>
         </tbody>
       </table>

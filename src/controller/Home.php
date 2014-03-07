@@ -5,7 +5,7 @@
 class Home extends Controller {
 
 	function __construct() {
-		$f3=Base::instance();
+		$f3=\Base::instance();
 	}
 
 	function main($f3) {
