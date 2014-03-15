@@ -1,0 +1,49 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}</h1>
+      </div>
+      <div class="condition">
+        <label for="mID" class="col-sm-1 control-label">类别</label>
+        <div class="col-sm-3">
+          <select class="form-control" name="mID" placeholder="选择类别..." required>
+            <option value="">选择类别...</option>
+
+          </select>
+        </div>
+        <label for="detail" class="col-sm-offset-1 col-sm-1 control-label">名称筛选</label>
+        <div class="col-sm-3">
+          <select class="form-control" name="mID" placeholder="输入名称..." required>
+            <option value="">输入名称...</option>
+
+          </select>
+        </div>
+      </div>
+      <table class="table table-hover all">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>名称</th>
+            <th>类别</th>
+            <th>品牌</th>
+            <th>型号</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <repeat group="{{ @items }}" value="{{ @i }}">
+          <tr>
+            <th><div class="btn-group btn-group-sm">
+                <a href="d/i{{ @i.iID }}" type="button" class="btn btn-primary">出入库</a>
+                <a href="d/l/{{ @i.iID }}" type="button" class="btn btn-info">流水</a>
+            </div></th>
+            <td><a href="i/{{ @i.iID }}">{{ @i.name }}</a></td>
+            <td>{{ @its[@i.tID] }}</td>
+            <td>{{ @i.brand }}</td>
+            <td>{{ @i.type }}</td>
+            <td>{{ @i.amount }}</td>
+            <td>
+              
+            </td>
+          </tr>
+          </repeat>
+        </tbody>
+      </table>

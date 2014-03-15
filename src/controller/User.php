@@ -16,8 +16,9 @@ class User extends Controller {
 	function get($f3) {
 		$f3->set('page', 
 				array(
-					"title"=>"登录",
-					"view"=>"user/_login.html"
+					"title"	=>	"登录",
+					"js"	=>	"login",
+					"view"	=>	"user/_login.html"
 				)
 			);
 	}

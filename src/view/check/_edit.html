@@ -1,28 +1,42 @@
-      <form class="form-horizontal" role="form">
+      <div class="page-header">
+        <h1>{{ @page.title }}</h1>
+      </div>
+      <form class="form-horizontal" method="post">
         <div class="form-group">
           <label for="checkno" class="col-sm-1 control-label">支票号</label>
-          <div class="col-sm-5">
-            <input type="text" class="form-control" name="checkno" placeholder="支票号">
+          <div class="col-sm-2">
+            <input type="text" class="form-control" name="checkno" placeholder="支票号" required />
           </div>
           <label for="invoicedate" class="col-sm-1 control-label">开票日期</label>
-          <div class="col-sm-5">
-            <input type="date" class="form-control" name="invoicedate">
+          <div class="col-sm-3">
+            <input type="date" class="form-control" name="invoicedate" required />
+          </div>
+          <label for="holder" class="col-sm-1 control-label">支付账户</label>
+          <div class="col-sm-4">
+            <select class="form-control" name="holder" required>
+              <option value="">选择支付账户...</option>
+              <option value="0">天津外大附校</option>
+              <option value="1">小外培训中心</option>
+            </select>
           </div>
         </div>
         <div class="form-group">
           <label for="money" class="col-sm-1 control-label">金额</label>
-          <div class="col-sm-5">
-            <input type="number" class="form-control" name="money" placeholder="金额">
+          <div class="col-sm-2">
+            <input type="number" class="form-control" name="money" placeholder="金额" required />
           </div>
-          <label for="supplier" class="col-sm-1 control-label">供应商</label>
-          <div class="col-sm-5">
-            <select class="form-control" name="supplier">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+          <label for="sID" class="col-sm-1 control-label">供应商</label>
+          <div class="col-sm-3">
+            <select class="form-control" name="sID" required>
+              <option value="">选择供应商...</option>
+<repeat group="{{ @ss }}" value="{{ @s }}">
+              <option value="{{ @s.sID }}">{{ @s.name }}</option>
+</repeat>
             </select>
+          </div>
+          <label for="purpose" class="col-sm-1 control-label">支付用途</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="purpose" placeholder="支付用途" required />
           </div>
         </div>
         <div class="form-group">
@@ -33,7 +47,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-10 col-sm-2">
-            <button type="submit" name="edit" class="btn btn-primary btn-block">保存</button>
+            <button type="submit" class="btn btn-primary btn-block">保存</button>
           </div>
         </div>
       </form>

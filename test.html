@@ -7,13 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ @page.title }} - 天津外大附校电教器材管理系统</title>
+    <title>TEST - 天津外大附校电教器材管理系统</title>
 
-    <base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
-<check if="{{ isset(@page.plugin) }}">
-    <link href="css/{{ @page.plugin }}.css" rel="stylesheet">
-</check>
+    <link href="css/selectize.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
   </head>
@@ -35,13 +32,14 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="home">首页</a></li>
+            <li><a href="#about">About</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">出入库管理 <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">库房操作</li>
                 <li><a href="d">出入库</a></li>
-                <li><a href="i/a">库存总表</a></li>
-                <li><a href="#">流水查询</a></li>
+                <li><a href="#">出库</a></li>
+                <li><a href="#">报废</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">器材管理</li>
                 <li><a href="i/l">器材总览</a></li>
@@ -51,40 +49,30 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">财务管理 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">支票管理</li>
-                <li><a href="#">新购物录入</a></li>
+                <li><a href="#">新发票</a></li>
                 <li><a href="#">发票列表</a></li>
-                <li><a href="#">数据统计</a></li>
+                <li><a href="#">发票统计</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">支票管理</li>
-                <li><a href="c">新支票</a></li>
-                <li><a href="c/l">支票浏览</a></li>
+                <li><a href="check/new">新支票</a></li>
+                <li><a href="check">支票浏览</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">信息管理 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">信息维护</li>
                 <li><a href="s">供应商列表</a></li>
-                <li><a href="t">器材分类管理</a></li>
-                <li><a href="#">出入库操作</a></li>
+                <li><a href="t">货物分类管理</a></li>
+                <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">系统设置</li>
-                <li><a href="#">用户管理</a></li>
-                <li><a href="#">界面设置</a></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
-            <li><a href="#about">关于</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <check if="{{ isset(@SESSION.UUID) }}">
-              <true>
-            <li class="active"><a href="user/logout">退出</a></li>
-              </true>
-              <false>
             <li class="active"><a href="user/login">登录</a></li>
-              </false>
-            </check>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -92,8 +80,27 @@
 
     <div class="container">
 
-<include href="{{ @page.view }}" />
+      <h1>Selectize.js</h1>
 
+      <div class="demo">
+        <h2>Required Element</h2>
+        <div class="control-group">
+          <form>
+            <label for="select-beast">Beast:</label>
+            <select id="select-beast" required class="demo-default" placeholder="选择操作人...">
+              <option value="">选择操作人...</option>
+              <option value="4">Thomas Edison</option>
+              <option value="1">Nikola</option>
+              <option value="3">Nikola Tesla</option>
+              <option value="5">Arnold Schwarzenegger</option>
+            </select>
+            <div style="margin-top:20px">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
       <hr>
 
       <footer>
@@ -105,15 +112,21 @@
     <!-- ===== JS ===== -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-<check if="{{ isset(@page.plugin) }}">
-    <script src="js/{{@page.plugin}}.min.js"></script>
-</check>
-<check if="{{ isset(@page.js) }}">
-<check if="{{ is_array(@page.js) }}">
-<true><repeat group="{{ @page.js }}" value="{{ @js }}">
-    <script src="js/{{@js}}.js"></script>
-</repeat></true><false>
-    <script src="js/{{@page.js}}.js"></script>
-</false></check></check>
+    <script src="js/selectize.min.js"></script>
+    <script src="js/main.js"></script>
+            <script>
+        $('#select-beast').selectize({
+          create: true,
+          sortField: {
+            field: 'value',
+            direction: 'asc'
+          },
+          render: {
+            option_create: function(data, escape) {
+              return '<div class="create">添加 <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+            }
+          }
+        });
+        </script>
   </body>
 </html>

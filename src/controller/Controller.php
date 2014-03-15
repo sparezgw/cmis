@@ -25,7 +25,7 @@ class Controller {
 		}
 	}
 
-	function doit($f3,$r) {
+	function doit($f3,$r) { //权限验证
 		$role = (int)$f3->get('SESSION.ROLE');
 		if ($role == 5) return TRUE;
 		elseif ($role >= $r) return TRUE;
@@ -44,20 +44,13 @@ class Controller {
 		return TRUE;
 	}
 
-	function initLog($f3, $tab) {
-		$uid = $f3->get('SESSION.UUID');
-		$this->l = array(
-			"uid"=>$uid,
-			"table"=>$tab,
-			"op"=>"",
-			"opID"=>0
-		);
-	}
-
-	function writeLog($f3) {
+	function writelog($f3, $l) {
 		$logs = new DB\SQL\Mapper($this->db,'logs');
-		$f3->set('lll', $this->l);
+		$f3->set('lll', $l);
 		$logs->copyFrom('lll');
+		$uid = $f3->get('SESSION.UUID');
+		$logs->uid = $uid;
+		$logs->time = date('Y-m-d H:i:s');
 		$logs->save();
 	}
 }

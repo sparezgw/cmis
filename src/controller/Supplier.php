@@ -9,7 +9,6 @@ class Supplier extends Controller {
 	function __construct($f3) {
 		parent::__construct();
 		$this->s = new DB\SQL\Mapper($this->db,'suppliers');
-		$this->initLog($f3, "supplier");
 	}
 
 	function get($f3) {
@@ -31,6 +30,8 @@ class Supplier extends Controller {
 			$f3->set('page', 
 				array(
 					"title"=>"供应商明细",
+					"js"=>"delete", //页面读取JS文件，添加删除method
+					"method"=>"POST", //页面默认method为POST
 					"view"=>"supplier/_edit.html"
 				)
 			);
@@ -42,15 +43,16 @@ class Supplier extends Controller {
 		if(!$this->doit($f3, 4)) $f3->error(401, $this->r);
 		$s = $this->s;
 		$sid = $f3->get('PARAMS.sid');
+		$l = array("table"=>'suppliers', "op"=>'NEW');
 		if (!empty($sid)) {
 			$s->load(array('sID=?', $sid));
-			$this->l['op'] = "PUT";
-		} else $this->l['op'] = "NEW";
+			$l['op'] = "PUT";
+		}
 		$s->copyFrom('POST');
 		$s->save();
 
-		$this->l['opID'] = $s->sID;
-		$this->writeLog($f3);
+		$l['opID'] = $s->sID;
+		$this->writelog($f3, $l);
 
 		$f3->reroute('/s');
 	}
@@ -66,8 +68,7 @@ class Supplier extends Controller {
 		else $f3->error(404);
 		$s->erase();
 
-		$this->l['op'] = "DEL";
-		$this->l['opID'] = $sid;
+		$this->writelog($f3, array("table"=>'suppliers', "op"=>'DEL', "opID"=>$sid));
 
 		$f3->reroute('/s');
 	}

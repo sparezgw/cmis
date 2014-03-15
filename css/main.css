@@ -10,6 +10,10 @@ footer {
   padding: 30px 0;
 }
 
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  vertical-align: middle;
+}
+
 .ico-lg {
   font-size: 18px;
   padding-left: 3px;
@@ -56,6 +60,6 @@ footer {
   border-top-right-radius: 0;
 }
 
-.newrow  > tbody > tr:last-child > th {
-  vertical-align: middle;
+.all>tbody>tr>th {
+  width: 120px;
 }

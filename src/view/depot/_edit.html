@@ -1,0 +1,69 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}</h1>
+      </div>
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <label for="operate" class="col-sm-1 control-label">操作方式</label>
+          <div class="col-sm-3">
+            <label class="col-sm-4 control-label">入库</label>
+<repeat group="{{ array_keys(@op.out) }}" value="{{ @o }}">
+            <label class="radio-inline"><input type="radio" name="operate" value="{{@o}}" required /> {{@op.out[@o]}}</label>
+</repeat>
+          </div>
+          <div class="col-sm-8">
+            <label class="col-sm-1 control-label">出库</label>
+<repeat group="{{ array_keys(@op.in) }}" value="{{ @o }}">
+            <label class="radio-inline"><input type="radio" name="operate" value="{{@o}}" required /> {{@op.in[@o]}}</label>
+</repeat>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="iID" class="col-sm-1 control-label">选择产品</label>
+          <div class="col-sm-3">
+            <select class="form-control" name="iID" placeholder="选择产品..." required>
+              <option value="">选择产品...</option>
+<repeat group="{{ @is }}" value="{{ @i }}">
+              <option value="{{ @i.iID }}"<check if="{{isset(@iid)&&@iid==@i.iID}}"> selected</check>>{{@i.name}} {{@i.brand}} {{@i.type}}</option>
+</repeat>
+            </select>
+          </div>
+          <label for="amount" class="col-sm-1 control-label">数量</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" name="amount" placeholder="数量" required />
+          </div>
+          <label for="datetime" class="col-sm-1 control-label">时间</label>
+          <div class="col-sm-3">
+            <input type="date" class="form-control" name="datetime" placeholder="时间" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mID" class="col-sm-1 control-label">操作人</label>
+          <div class="col-sm-3">
+            <select class="form-control" name="mID" placeholder="选择操作人..." required>
+              <option value="">选择操作人...</option>
+<repeat group="{{ @ms }}" value="{{ @m }}">
+              <option value="{{ @m.mID }}">{{ @m.name }}</option>
+</repeat>
+            </select>
+          </div>
+          <label for="detail" class="col-sm-1 control-label">用途</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="detail" placeholder="用途" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="memo" class="col-sm-1 control-label">备注</label>
+          <div class="col-sm-11">
+            <textarea class="form-control" rows="5" name="memo" placeholder="备注"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="_method" value="{{ @page.method }}" />
+          <div class="col-sm-offset-8 col-sm-2">
+            <a type="button" href="javascript:history.back();" class="btn btn-default btn-block">返回</a>
+          </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-block">保存</button>
+          </div>
+        </div>
+      </form>
