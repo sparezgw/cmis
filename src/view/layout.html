@@ -70,7 +70,7 @@
                 <li><a href="#">出入库操作</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">系统设置</li>
-                <li><a href="#">用户管理</a></li>
+                <li><a href="u">用户管理</a></li>
                 <li><a href="#">界面设置</a></li>
               </ul>
             </li>
@@ -79,10 +79,10 @@
           <ul class="nav navbar-nav navbar-right">
             <check if="{{ isset(@SESSION.UUID) }}">
               <true>
-            <li class="active"><a href="user/logout">退出</a></li>
+            <li class="active"><a href="logout">退出</a></li>
               </true>
               <false>
-            <li class="active"><a href="user/login">登录</a></li>
+            <li class="active"><a href="login">登录</a></li>
               </false>
             </check>
           </ul>

@@ -14,7 +14,7 @@ class Controller {
 
 	function beforeroute($f3) {
 		if ($f3->get('SESSION.UUID') == "") 
-			$f3->reroute('/user/login');
+			$f3->reroute('/login');
 	}
 
 	function afterroute($f3) {

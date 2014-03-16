@@ -1,47 +1,37 @@
-      <h2>{{ @pageTitle }}</h2>
+      <div class="page-header">
+        <h1>{{ @page.title }}
+          <a type="button" href="c" class="btn btn-primary navbar-right">
+            <span class="glyphicon glyphicon-plus"></span> 新增
+          </a>
+        </h1>
+      </div>
       <table class="table table-hover">
         <thead>
           <tr>
             <th>支票号</th>
-            <th>支付账户</th>
             <th>开票日期</th>
-            <th>支付原因</th>
+            <th>支付账户</th>
             <th>金额</th>
             <th>供应商</th>
+            <th>支付用途</th>
             <th>领取日期</th>
             <th>领取人</th>
+            <th>备注</th>
           </tr>
         </thead>
         <tbody>
+<repeat group="{{ @cs }}" value="{{ @c }}">
           <tr>
-            <th><a href="check/04028668">04028668</a></th>
-            <td>外大附校</td>
-            <td>2013-12-04</td>
-            <td>购买打印机耗材</td>
-            <td>1480.00</td>
-            <td>务实办公</td>
-            <td>2013-12-04</td>
-            <td>温庆丰</td>
+            <th><a href="c/{{ @c.cID }}">{{ @c.checkno }}</a></th>
+            <td>{{ @c.invoicedate }}</td>
+            <td>{{ @ch[@c.holder] }}</td>
+            <td>{{ @c.money }}</td>
+            <td>{{ @ss[@c.sID] }}</td>
+            <td>{{ @c.purpose }}</td>
+            <td>{{ @c.duedate }}</td>
+            <td>{{ @c.receiptor }}</td>
+            <td>{{ @c.memo }}</td>
           </tr>
-          <tr>
-            <th><a href="check/04028668">04028668</a></th>
-            <td>外大附校</td>
-            <td>2013-12-04</td>
-            <td>购买打印机耗材</td>
-            <td>1480.00</td>
-            <td>务实办公</td>
-            <td>2013-12-04</td>
-            <td>温庆丰</td>
-          </tr>
-          <tr>
-            <th><a href="check/04028668">04028668</a></th>
-            <td>外大附校</td>
-            <td>2013-12-04</td>
-            <td>购买打印机耗材</td>
-            <td>1480.00</td>
-            <td>务实办公</td>
-            <td>2013-12-04</td>
-            <td>温庆丰</td>
-          </tr>
+</repeat>
         </tbody>
       </table>

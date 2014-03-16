@@ -1,0 +1,43 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}</h1>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>姓名</th>
+            <th>权限</th>
+          </tr>
+        </thead>
+        <tbody>
+          <repeat group="{{ @us }}" value="{{ @u }}">
+          <tr>
+            <th>{{ @u.uID }}</th>
+            <td>{{ @u.uname }}</td>
+            <td>******</td>
+            <td>{{ @u.name }}</td>
+            <td>{{ @role[@u.role] }}</td>
+          </tr>
+          </repeat>
+          <check if="{{ @SESSION.ROLE = 5 }}">
+          <tr>
+          <form method="post">
+            <th><input class="btn btn-primary btn-sm" type="submit" value="新增" /></th>
+            <td><input type="text" class="form-control" name="uname" placeholder="用户名" required /></td>
+            <td><input type="text" class="form-control" name="passwd" placeholder="密码" required /></td>
+            <td><input type="text" class="form-control" name="name" placeholder="姓名" required /></td>
+            <td>
+              <select class="form-control" name="role" required>
+                <option value="">分配权限...</option>
+<repeat group="{{ array_keys(@role) }}" value="{{ @r }}">
+                <option value="{{ @r }}">{{ @role[@r] }}</option>
+</repeat>
+              </select>
+            </td>
+          </form>
+          </tr>
+          </check>
+        </tbody>
+      </table>
