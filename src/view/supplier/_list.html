@@ -14,6 +14,7 @@
           </check>
             <th>供应商全称</th>
             <th>简称</th>
+            <th>纳税人识别号</th>
             <th>备注</th>
           </tr>
         </thead>
@@ -30,6 +31,7 @@
           </check>
             <td>{{ @s.fullname }}</td>
             <td>{{ @s.name }}</td>
+            <td>{{ @s.taxid }}</td>
             <td>{{ @s.memo }}</td>
           </tr>
           </repeat>
@@ -39,6 +41,7 @@
             <th><input class="btn btn-primary btn-sm" type="submit" value="新增" /></th>
             <td><input type="text" class="form-control" name="fullname" placeholder="供应商全称" required /></td>
             <td><input type="text" class="form-control" name="name" placeholder="简称" required /></td>
+            <td><input type="text" class="form-control" name="taxid" placeholder="纳税人识别号" required /></td>
             <td><input type="text" class="form-control" name="memo" placeholder="备注"></td>
           </form>
           </tr>

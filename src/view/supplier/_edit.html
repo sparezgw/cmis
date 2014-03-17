@@ -3,19 +3,23 @@
       </div>
       <form class="form-horizontal rest" role="form" method="post">
         <div class="form-group">
-          <label for="fullname" class="col-sm-2 control-label">供应商全称</label>
-          <div class="col-sm-5">
+          <label for="fullname" class="col-sm-1 control-label">全称</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control" name="fullname" value="{{ @s.fullname }}" required>
           </div>
           <label for="name" class="col-sm-1 control-label">简称</label>
-          <div class="col-sm-4">
+          <div class="col-sm-2">
             <input type="text" class="form-control" name="name" value="{{ @s.name }}" required>
+          </div>
+          <label for="taxid" class="col-sm-1 control-label">税号</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" name="taxid" value="{{ @s.taxid }}" required>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="memo" class="col-sm-2 control-label">备注</label>
-          <div class="col-sm-10">
+          <label for="memo" class="col-sm-1 control-label">备注</label>
+          <div class="col-sm-11">
             <textarea class="form-control" rows="3" name="memo">{{ @s.memo }}</textarea>
           </div>
         </div>
