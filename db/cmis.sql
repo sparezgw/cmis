@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 17 日 08:24
+-- 生成日期: 2014 年 03 月 21 日 05:22
 -- 服务器版本: 5.5.28
 -- PHP 版本: 5.4.24
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- 表的结构 `assets`
 --
 
+DROP TABLE IF EXISTS `assets`;
 CREATE TABLE `assets` (
   `aID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `dID` int(10) unsigned NOT NULL COMMENT '出入库ID',
@@ -42,6 +43,7 @@ CREATE TABLE `assets` (
 -- 表的结构 `checks`
 --
 
+DROP TABLE IF EXISTS `checks`;
 CREATE TABLE `checks` (
   `cID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `checkno` varchar(10) NOT NULL COMMENT '支票号',
@@ -63,6 +65,7 @@ CREATE TABLE `checks` (
 -- 表的结构 `depots`
 --
 
+DROP TABLE IF EXISTS `depots`;
 CREATE TABLE `depots` (
   `dID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `iID` int(10) unsigned NOT NULL COMMENT '货物ID',
@@ -82,6 +85,7 @@ CREATE TABLE `depots` (
 -- 表的结构 `invoices`
 --
 
+DROP TABLE IF EXISTS `invoices`;
 CREATE TABLE `invoices` (
   `vID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `invoiceno` varchar(15) NOT NULL COMMENT '发票号',
@@ -102,6 +106,7 @@ CREATE TABLE `invoices` (
 -- 表的结构 `items`
 --
 
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `iID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '货物名称',
@@ -120,6 +125,7 @@ CREATE TABLE `items` (
 -- 表的结构 `itemtype`
 --
 
+DROP TABLE IF EXISTS `itemtype`;
 CREATE TABLE `itemtype` (
   `tID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL COMMENT '货物类别名称',
@@ -132,6 +138,7 @@ CREATE TABLE `itemtype` (
 -- 表的结构 `logs`
 --
 
+DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `lID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` tinyint(3) unsigned NOT NULL COMMENT '用户ID',
@@ -148,6 +155,7 @@ CREATE TABLE `logs` (
 -- 表的结构 `members`
 --
 
+DROP TABLE IF EXISTS `members`;
 CREATE TABLE `members` (
   `mID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL COMMENT '成员姓名',
@@ -160,6 +168,7 @@ CREATE TABLE `members` (
 -- 表的结构 `suppliers`
 --
 
+DROP TABLE IF EXISTS `suppliers`;
 CREATE TABLE `suppliers` (
   `sID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `fullname` varchar(30) NOT NULL COMMENT '供应商全称',
@@ -175,6 +184,7 @@ CREATE TABLE `suppliers` (
 -- 表的结构 `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `uID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `uname` varchar(16) NOT NULL DEFAULT 'guest' COMMENT '登录名',

@@ -18,8 +18,10 @@ class Controller {
 	}
 
 	function afterroute($f3) {
-		if ($f3->get('json'))
-			echo $f3->get('msg');
+		if ($f3->exists('page.msg'))
+			echo $f3->get('page.msg');
+		elseif ($f3->exists('page.single'))
+			echo Template::instance()->render($f3->get('page.single'));
 		else {
 			echo Template::instance()->render('layout.html');
 		}

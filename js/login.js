@@ -1,8 +1,7 @@
 $(".login").submit(function(event) {
   event.preventDefault();
   $.post('/login', $(this).serialize(), function(data) {
-    if(data != "false")
-      $("#error").html("<strong>错误！</strong>"+data).show('slow');
+    if(data) $("#error").html("<strong>错误！</strong>"+data).show('slow');
     else location.href="/home";  
   });
 });

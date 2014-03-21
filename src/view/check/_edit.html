@@ -5,7 +5,7 @@
         <div class="form-group">
           <label for="checkno" class="col-sm-1 control-label">支票号</label>
           <div class="col-sm-2">
-            <input type="text" class="form-control" value="{{@c.checkno}}" placeholder="支票号" disabled />
+            <input type="text" class="form-control" value="{{@c.checkno}}" disabled />
           </div>
           <label for="invoicedate" class="col-sm-1 control-label">开票日期</label>
           <div class="col-sm-3">
@@ -14,30 +14,28 @@
           <label for="holder" class="col-sm-1 control-label">支付账户</label>
           <div class="col-sm-4">
             <select class="form-control" disabled>
-              <option value="">选择支付账户...</option>
-<repeat group="{{ array_keys(@ch) }}" value="{{ @h }}">
-              <option value="{{ @h }}"<check if="{{@c.holder==@h}}"> selected</check>>{{ @ch[@h] }}</option>
-</repeat>
+              <option value="{{@c.holder}}" selected>{{ @ch[@c.holder] }}</option>
             </select>
           </div>
         </div>
         <div class="form-group">
           <label for="money" class="col-sm-1 control-label">金额</label>
           <div class="col-sm-2">
-            <input type="number" class="form-control" value="{{@c.money}}" placeholder="金额" disabled />
+            <input type="number" class="form-control" value="{{@c.money}}" disabled />
           </div>
           <label for="sID" class="col-sm-1 control-label">供应商</label>
           <div class="col-sm-3">
             <select class="form-control" disabled>
-              <option value="">选择供应商...</option>
 <repeat group="{{ @ss }}" value="{{ @s }}">
-              <option value="{{ @s.sID }}"<check if="{{@c.sID==@s.sID}}"> selected</check>>{{ @s.name }}</option>
+<check if="{{@c.sID==@s.sID}}">
+              <option value="{{ @s.sID }}" selected>{{ @s.name }}</option>
+</check>
 </repeat>
             </select>
           </div>
           <label for="purpose" class="col-sm-1 control-label">支付用途</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" value="{{@c.purpose}}" placeholder="支付用途" disabled />
+            <input type="text" class="form-control" value="{{@c.purpose}}" disabled />
           </div>
         </div>
         <div class="form-group">
@@ -47,7 +45,7 @@
           </div>
           <label for="receiptor" class="col-sm-1 control-label">领取人</label>
           <div class="col-sm-2">
-            <input type="text" class="form-control" name="receiptor" value="{{@c.receiptor}}" placeholder="领取人" required />
+            <input type="text" class="form-control" name="receiptor" placeholder="领取人" value="{{@c.receiptor}}" required />
           </div>
         </div>
         <div class="form-group">

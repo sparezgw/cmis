@@ -31,7 +31,7 @@ class ItemType extends Controller {
     //记录日志
     $this->writelog($f3 ,array("table"=>'itemtype', "op"=>'NEW', "opID"=>$t->tID));
     //页面跳转
-    $f3->reroute('/t`');
+    $f3->reroute('/t');
   }
 }
 ?>

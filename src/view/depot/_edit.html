@@ -18,10 +18,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="iID" class="col-sm-1 control-label">选择产品</label>
+          <label for="iID" class="col-sm-1 control-label">选择器材</label>
           <div class="col-sm-3">
-            <select class="form-control" name="iID" placeholder="选择产品..." required>
-              <option value="">选择产品...</option>
+            <select class="form-control" name="iID" placeholder="选择器材..." required>
+              <option value="">选择器材...</option>
 <repeat group="{{ @is }}" value="{{ @i }}">
               <option value="{{ @i.iID }}"<check if="{{isset(@iid)&&@iid==@i.iID}}"> selected</check>>{{@i.name}} {{@i.brand}} {{@i.type}}</option>
 </repeat>

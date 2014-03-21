@@ -36,10 +36,9 @@ class Login extends Controller {
     else { 
       $f3->set('SESSION.UUID', $u->uID);
       $f3->set('SESSION.ROLE', $u->role);
-      $msg = "false";
+      $msg = FALSE;
     }
-    $f3->set('msg', $msg);
-    $f3->set('json', true);
+    $f3->set('page.msg', $msg);
   }
 
   function logout($f3) {

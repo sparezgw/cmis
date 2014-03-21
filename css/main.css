@@ -13,6 +13,12 @@ footer {
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
   vertical-align: middle;
 }
+.panel {
+  margin: 0;
+}
+.panel-body .form-group {
+  margin-bottom: 0;
+}
 
 .ico-lg {
   font-size: 18px;

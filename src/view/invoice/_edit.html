@@ -1,0 +1,133 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}</h1>
+      </div>
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <label for="invoiceno" class="col-sm-1 control-label">发票号</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" name="invoiceno" placeholder="发票号" required />
+          </div>
+          <label for="invoicedate" class="col-sm-1 control-label">开票日期</label>
+          <div class="col-sm-3">
+            <input type="date" class="form-control" name="invoicedate" required />
+          </div>
+          <label for="holder" class="col-sm-1 control-label">支付账户</label>
+          <div class="col-sm-3">
+            <select class="form-control" name="holder" required>
+              <option value="">选择支付账户...</option>
+<repeat group="{{ array_keys(@ch) }}" value="{{ @h }}">
+              <option value="{{ @h }}">{{ @ch[@h] }}</option>
+</repeat>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="money" class="col-sm-1 control-label">金额</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control" name="money" placeholder="金额" disabled />
+          </div>
+          <label for="sID" class="col-sm-1 control-label">供应商</label>
+          <div class="col-sm-3">
+            <select class="form-control" name="sID" required>
+              <option value="">选择供应商...</option>
+<repeat group="{{ @ss }}" value="{{ @s }}">
+              <option value="{{ @s.sID }}">{{ @s.name }}</option>
+</repeat>
+            </select>
+          </div>
+          <label for="projectno" class="col-sm-1 control-label">政采编号</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" name="projectno" placeholder="政采计划编号" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cID" class="col-sm-1 control-label">支票号</label>
+          <div class="col-sm-5">
+            <select class="form-control" name="cID" required>
+              <option value="">选择对应支票...</option>
+              <option value="0">现金支付</option>
+<repeat group="{{ @cs }}" value="{{ @c }}">
+              <option value="{{ @c.cID }}">{{@c.checkno}} {{@c.invoicedate}} {{@c.money}}</option>
+</repeat>
+            </select>
+          </div>
+          <label for="hID" class="col-sm-1 control-label">刷卡信息</label>
+          <div class="col-sm-5">
+            <select class="form-control" name="hID" required>
+              <option value="">选择刷卡明细...</option>
+              <option value="0">支票支付</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">明细</label>
+          <div class="col-sm-11">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                
+                <div class="col-sm-5">
+                <select class="form-control" name="items" required>
+                  <option value="">选择器材...</option>
+<repeat group="{{ @is }}" value="{{ @i }}">
+                  <option value="{{ @i.iID }}">{{@i.name}} {{@i.brand}} {{@i.type}}</option>
+</repeat>
+                </select>
+                </div>
+                <button class="btn btn-info" data-toggle="modal" data-target="#newItem">新增器材</button>
+                <button class="btn btn-primary">添加</button>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>器材</th>
+                    <th>个数</th>
+                    <th>单价</th>
+                    <th>总价</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>硒鼓 惠普 88A</td>
+                    <td>5</td>
+                    <td>300.00</td>
+                    <td>1500.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="memo" class="col-sm-1 control-label">备注</label>
+          <div class="col-sm-11">
+            <textarea class="form-control" rows="3" name="memo" placeholder="备注"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-8 col-sm-2">
+            <a type="button" href="javascript:history.back();" class="btn btn-default btn-block">返回</a>
+          </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-block">保存</button>
+          </div>
+        </div>
+      </form>
+      <div class="modal fade" id="newItem" tabindex="-1" role="dialog" aria-labelledby="itemLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="itemLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
