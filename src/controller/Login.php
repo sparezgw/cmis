@@ -35,6 +35,7 @@ class Login extends Controller {
     elseif ($u->role == 0) $msg = "对不起您没有登录权限。";
     else { 
       $f3->set('SESSION.UUID', $u->uID);
+      $f3->set('SESSION.MID', $u->mID);
       $f3->set('SESSION.ROLE', $u->role);
       $msg = FALSE;
     }

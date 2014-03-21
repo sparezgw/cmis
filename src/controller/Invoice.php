@@ -70,14 +70,34 @@ class Invoice extends Controller {
   function post($f3) {
     //权限控制：>＝4 财务员
     if(!$this->doit($f3, 4)) $f3->error(401, $this->r);
-
+    // 新增发票
     $v = $this->v;
     $v->copyFrom('POST');
-    // $c->save();
+    $v->save();
+    // 处理货物备件
+    $d = new DB\SQL\Mapper($this->db,'depots');
+    $items = json_decode($v->items);
+    $is = array();
+    foreach ($items as $key => $value) {
+      $d->iID = (int)$key;
+      $d->amount = $value->a;
+      $d->price = $value->p;
+      $d->datetime = date("Y-m-d H:i:s");
+      $d->operate = "XG0";
+      $d->mID = $f3->get('SESSION.MID');
+      $d->detail = $v->vID;
+      $d->save();
+      $this->writelog($f3, array("table"=>'depots', "op"=>'NEW', "opID"=>$d->dID));
+      $is[] = $d->dID;
+      $d->reset();
+    }
+    // 更新记录，完善货物出入库ID
+    $v->items = json_encode($is);
+    $v->save();
     //记录日志
-    // $this->writelog($f3 ,array("table"=>'checks', "op"=>'NEW', "opID"=>$c->cID));
+    $this->writelog($f3, array("table"=>'invoices', "op"=>'NEW', "opID"=>$v->vID));
     //页面跳转
-    // $f3->reroute('/c/l');
+    $f3->reroute('/v');
   }
 
   function put($f3) {
@@ -93,7 +113,7 @@ class Invoice extends Controller {
       $c->save();
     }
     //记录日志
-    $this->writelog($f3 ,array("table"=>'checks', "op"=>'PUT', "opID"=>$c->cID));
+    $this->writelog($f3, array("table"=>'checks', "op"=>'PUT', "opID"=>$c->cID));
     //页面跳转
     $f3->reroute('/c/l');
   }

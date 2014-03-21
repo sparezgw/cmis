@@ -92,7 +92,7 @@ class Depot extends Controller {
     if(!$i->dry()) $d->save();
     else $f3->error(404);
     //记录日志
-    $this->writelog($f3 ,array("table"=>'depots', "op"=>'NEW', "opID"=>$d->dID));
+    $this->writelog($f3, array("table"=>'depots', "op"=>'NEW', "opID"=>$d->dID));
     //页面跳转
     $f3->reroute('/i/a');
   }

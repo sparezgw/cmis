@@ -98,7 +98,7 @@ class Item extends Controller {
     $i->copyFrom('POST');
     $i->save();
     //记录日志
-    $this->writelog($f3 ,array("table"=>'items', "op"=>'NEW', "opID"=>$i->iID));
+    $this->writelog($f3, array("table"=>'items', "op"=>'NEW', "opID"=>$i->iID));
     //页面跳转
     $f3->reroute('/i/l');
   }
@@ -118,7 +118,7 @@ class Item extends Controller {
     $i->copyFrom('POST');
     $i->save();
     //记录日志
-    $this->writelog($f3 ,array("table"=>'items', "op"=>'PUT', "opID"=>$iid));
+    $this->writelog($f3, array("table"=>'items', "op"=>'PUT', "opID"=>$iid));
     //页面跳转
     $f3->reroute('/i/l');
   }
@@ -136,7 +136,7 @@ class Item extends Controller {
     if (!empty($iid)) $i->erase(array('iID=?', $iid));
     else $f3->error(404);
     //记录日志
-    $this->writelog($f3 ,array("table"=>'items', "op"=>'DEL', "opID"=>$iid));
+    $this->writelog($f3, array("table"=>'items', "op"=>'DEL', "opID"=>$iid));
     //页面跳转
     $f3->reroute('/i/l');
   }

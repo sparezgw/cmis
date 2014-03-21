@@ -55,10 +55,12 @@ $(document).on('click', 'a.text-danger', function() {
   $("input[name='money']").val(total.toFixed(2));
 });
 
-$("form:first").submit(function(event) {
+$("button#save").click(function(event) {
   event.preventDefault();
-  $("[name='items'] option:selected").val(JSON.stringify($("body").data()))
-  $(this).submit();
+  var items = JSON.stringify($("body").data());
+  $("select[name='items'] option:selected").val(items);
+  console.log($(this).serialize())
+  $("form:first").submit();
 });
 
 function sum() {
