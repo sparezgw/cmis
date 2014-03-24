@@ -18,8 +18,8 @@ class Controller {
 	}
 
 	function afterroute($f3) {
-		if ($f3->exists('page.msg'))
-			echo $f3->get('page.msg');
+		if ($f3->exists('page.json'))
+			echo $f3->get('page.json');
 		elseif ($f3->exists('page.single'))
 			echo Template::instance()->render($f3->get('page.single'));
 		else {

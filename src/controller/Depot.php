@@ -43,16 +43,22 @@ class Depot extends Controller {
     $iid = $f3->get('PARAMS.iid');
     $ds = $d->find('iID='.$iid, array('order'=>'dID'));
     $f3->set('ds', $ds);
-    $f3->set('ops', array_merge($f3->get('op.out'),$f3->get('op.in')));
+    // 操作方式 数组
+    $ops = array_merge($f3->get('op.out'),$f3->get('op.in'));
+    $ops['XG0'] = "发票";
+    $f3->set('ops', $ops);
+    // 设备明细
     $i = new DB\SQL\Mapper($this->db,'items');
     $i->load('iID='.$iid);
     $i->copyTo('i');
+    // 操作人 数组
     $m = new DB\SQL\Mapper($this->db,'members');
     $ms = $m->find();
     $mss = array();
     foreach ($ms as $mm)
       $mss[$mm->mID] = $mm->name;
     $f3->set('ms', $mss);
+    // page信息
     $f3->set('page',
       array(
         "title"=>"出入库流水",

@@ -14,17 +14,21 @@
           </tr>
         </thead>
         <tbody>
-          <repeat group="{{ @ds }}" value="{{ @d }}">
+<repeat group="{{ @ds }}" value="{{ @d }}">
           <tr>
             <th>{{ @d.dID }}</th>
             <td>{{ substr(@d.datetime,0,10) }}</td>
             <td>{{ @ops[@d.operate] }}</td>
             <td>{{ @d.amount }}</td>
             <td>{{ @ms[@d.mID] }}</td>
-            <td>{{ @d.detail }}</td>
+            <td><check if="{{@d.operate=='XG0'}}">
+<true><set v="{{json_decode(@d.detail,true)}}" k="{{key(@v)}}" />
+<a href="v/{{@k}}">{{@v[@k]}}</a></true>
+<false>{{ @d.detail }}</false>
+</check></td>
             <td>{{ @d.memo }}</td>
           </tr>
-          </repeat>
+</repeat>
         </tbody>
       </table>
       <p>

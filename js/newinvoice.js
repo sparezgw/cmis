@@ -59,7 +59,6 @@ $("button#save").click(function(event) {
   event.preventDefault();
   var items = JSON.stringify($("body").data());
   $("select[name='items'] option:selected").val(items);
-  console.log($(this).serialize())
   $("form:first").submit();
 });
 

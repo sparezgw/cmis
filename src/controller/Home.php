@@ -11,6 +11,22 @@ class Home extends Controller {
   function main($f3) {
     $f3->reroute('/home');
   }
+  function about($f3) {
+    $f3->set('page',
+      array(
+        "title"=>"关于",
+        "view"=>"home/_about.html"
+      )
+    );
+  }
+  function vars($f3) {
+    $f3->set('page',
+      array(
+        "title"=>"默认参数查看",
+        "view"=>"home/_vars.html"
+      )
+    );
+  }
 
   function get($f3) {
   //  $uid = $f3->get('SESSION.UUID');

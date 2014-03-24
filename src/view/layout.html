@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ @page.title }} - 天津外大附校电教器材管理系统</title>
+    <title>{{ @page.title }} - TFLS_IT.Dept_PPSMS</title>
 
     <base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,28 +24,21 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">电教器材MIS</a>
+          <div class="navbar-brand">TFLS PSS</div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="home">首页</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">出入库管理 <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">仓库管理 <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">库房操作</li>
                 <li><a href="d">出入库</a></li>
                 <li><a href="i/a">库存总表</a></li>
-                <li><a href="#"><del>流水查询</del></a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">器材管理</li>
-                <li><a href="i/l">器材总览</a></li>
-                <li><a href="i">新增器材</a></li>
+                <li class="dropdown-header">数据统计</li>
+                <li><a href="#">流水查询</a></li>
+                <li><a href="#">分类统计</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -53,12 +46,29 @@
               <ul class="dropdown-menu">
                 <li class="dropdown-header">发票管理</li>
                 <li><a href="v">新购物录入</a></li>
-                <li><a href="#">发票列表</a></li>
+                <li><a href="v/l">发票列表</a></li>
                 <li><a href="#"><del>数据统计</del></a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">支票管理</li>
                 <li><a href="c">新支票</a></li>
                 <li><a href="c/l">支票浏览</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">现金刷卡</li>
+                <li><a href="h">信息录入</a></li>
+                <li><a href="h/l">刷卡记录浏览</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">资产管理 <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">设备管理</li>
+                <li><a href="i/l">设备总览</a></li>
+                <li><a href="i">添加设备</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">固定资产</li>
+                <li><a href="a/l">固定资产列表</a></li>
+                <li><a href="a">固定资产登记</a></li>
+                <li><a href="#">报废统计</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -66,15 +76,15 @@
               <ul class="dropdown-menu">
                 <li class="dropdown-header">信息维护</li>
                 <li><a href="s">供应商列表</a></li>
-                <li><a href="t">器材分类管理</a></li>
-                <li><a href="#"><del>默认参数查看</del></a></li>
+                <li><a href="t">设备分类管理</a></li>
+                <li><a href="vars">默认参数查看</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">系统设置</li>
                 <li><a href="u">用户管理</a></li>
-                <li><a href="#"><del>界面设置</del></a></li>
+                <li><a href="#">修改密码</a></li>
               </ul>
             </li>
-            <li><a href="#about">关于</a></li>
+            <li><a href="about">关于</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <check if="{{ isset(@SESSION.UUID) }}">

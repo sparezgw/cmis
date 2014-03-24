@@ -39,7 +39,7 @@ class Login extends Controller {
       $f3->set('SESSION.ROLE', $u->role);
       $msg = FALSE;
     }
-    $f3->set('page.msg', $msg);
+    $f3->set('page.json', $msg);
   }
 
   function logout($f3) {

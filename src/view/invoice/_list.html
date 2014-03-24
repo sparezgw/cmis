@@ -1,0 +1,33 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}
+          <a type="button" href="v" class="btn btn-primary pull-right">
+            <span class="glyphicon glyphicon-plus"></span> 新增
+          </a>
+        </h1>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>发票号</th>
+            <th>开票日期</th>
+            <th>支付账户</th>
+            <th>金额</th>
+            <th>供应商</th>
+            <th>支付方式</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+<repeat group="{{ @vs }}" value="{{ @v }}">
+          <tr>
+            <th><a href="v/{{ @v.vID }}">{{ @v.invoiceno }}</a></th>
+            <td>{{ @v.invoicedate }}</td>
+            <td>{{ @ch[@v.holder] }}</td>
+            <td>{{ @v.money }}</td>
+            <td>{{ @ss[@v.sID] }}</td>
+            <td>{{ @v.payment }}</td>
+            <td>{{ @v.memo }}</td>
+          </tr>
+</repeat>
+        </tbody>
+      </table>

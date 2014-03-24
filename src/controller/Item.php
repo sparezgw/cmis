@@ -66,7 +66,8 @@ class Item extends Controller {
           array(
             "title"=>"库存总表",
             "view"=>"item/_all.html",
-            "plugin"=>"selectize"
+            "plugin"=>"selectize",
+            "js"=>"select"
           )
         );
         break;
