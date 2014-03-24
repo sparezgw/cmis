@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 21 日 05:22
+-- 生成日期: 2014 年 03 月 24 日 00:40
 -- 服务器版本: 5.5.28
 -- PHP 版本: 5.4.24
 
@@ -95,10 +95,10 @@ CREATE TABLE `invoices` (
   `items` text NOT NULL COMMENT '货物明细 出入库ID',
   `money` decimal(9,2) unsigned NOT NULL COMMENT '发票金额',
   `projectno` varchar(25) DEFAULT NULL COMMENT '政采计划编号',
-  `cID` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '支票号',
+  `payment` varchar(16) DEFAULT NULL COMMENT '支付方式',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`vID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
