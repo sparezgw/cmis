@@ -19,10 +19,10 @@ class Invoice extends Controller {
     $i = new DB\SQL\Mapper($this->db,'items');
     $is = $i->select('iID,name,brand,type');
     switch (TRUE) {
-      case ($vid == 'i'):
+      case ($vid == 'i'): // 新发票页面，添加新设备窗口内容
         $f3->set('page.single', 'invoice/_new_item.html');
         break;
-      case (substr($vid,0,1) == 'p'):
+      case (substr($vid,0,1) == 'p'): // 获取支票或者现金相关数据 JSON
         $method = $f3->get('GET.m');
         if ($method == 'c') {
           $c = new DB\SQL\Mapper($this->db,'checks');
@@ -48,7 +48,7 @@ class Invoice extends Controller {
         
         $f3->set('page.json', $re);
         break;
-      case ($vid == 'l'):
+      case ($vid == 'l'): // 发票列表
         $sarr = array();
         foreach ($ss as $es)
           $sarr[$es->sID] = $es->name;
@@ -61,7 +61,7 @@ class Invoice extends Controller {
           )
         );
         break;
-      case (is_numeric($vid)):
+      case (is_numeric($vid)): // 修改发票详细数据
         $v->load(array('vID=?', $vid));
         if ($v->dry()) $f3->error(404);
         $v->copyto('v');
@@ -69,7 +69,6 @@ class Invoice extends Controller {
         $s->load(array('sID=?', $v->sID));
         $f3->set('v.sname', $s->name);
         // 读取出入库表，列出发票物品明细
-        // $d = new DB\SQL\Mapper($this->db,'depots');
         $items = substr($v->items, 1, strlen($v->items)-2);
         $f3->set('is',
           $this->db->exec(
@@ -80,8 +79,6 @@ class Invoice extends Controller {
             WHERE dID in ('.$items.')'
           )
         );
-        // $is = $d->select('iID,amount,price', 'dID in ('.$items.')');
-        // $f3->set('is', $is);
         $f3->set('page',
           array(
             "title"=>"发票明细",

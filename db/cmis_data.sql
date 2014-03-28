@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 24 日 00:40
+-- 生成日期: 2014 年 03 月 28 日 06:32
 -- 服务器版本: 5.5.28
 -- PHP 版本: 5.4.24
 
@@ -28,10 +28,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `assets` (
   `aID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `dID` int(10) unsigned NOT NULL COMMENT '出入库ID',
+  `iID` int(10) unsigned NOT NULL COMMENT '货物ID',
+  `vID` int(10) unsigned NOT NULL COMMENT '发票ID',
   `assetno` varchar(10) DEFAULT NULL COMMENT '固定资产统一编号',
   `internalno` varchar(10) NOT NULL COMMENT '校内固定资产编号',
   `departno` varchar(50) DEFAULT NULL COMMENT '电教资产编号',
+  `isin` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否在账上',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`aID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='固定资产表' AUTO_INCREMENT=1 ;
@@ -178,10 +180,10 @@ CREATE TABLE IF NOT EXISTS `items` (
 --
 
 INSERT INTO `items` (`iID`, `name`, `brand`, `type`, `unit`, `amount`, `tID`, `memo`) VALUES
-(6, '硒鼓', 'HP', '88A', '个', 5, 1, '打印机原装硒鼓'),
+(6, '硒鼓', '惠普', '88A', '个', 5, 1, '打印机原装硒鼓'),
 (7, '打印机', '惠普', 'P1108', '台', 0, 2, '办公用打印机配件88A'),
 (8, '计算机', '戴尔', 'P5Z1', '台', 1, 2, '戴尔台式机'),
-(9, '硒鼓', 'HP', '128A', '个', 8, 1, 'HP 1525n 耗材'),
+(9, '硒鼓', '惠普', '128A', '个', 8, 1, 'HP 1525n 耗材'),
 (15, '投影机灯泡', '爱普生', 'YK800', '个', 0, 1, '教师用长焦投影机替换灯泡');
 
 -- --------------------------------------------------------
@@ -220,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `opID` int(10) unsigned NOT NULL COMMENT '操作ID',
   `time` datetime NOT NULL COMMENT '操作时间',
   PRIMARY KEY (`lID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='日志表' AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='日志表' AUTO_INCREMENT=55 ;
 
 --
 -- 转存表中的数据 `logs`
@@ -278,7 +280,9 @@ INSERT INTO `logs` (`lID`, `uid`, `table`, `op`, `opID`, `time`) VALUES
 (49, 1, 'depots', 'NEW', 34, '2014-03-24 00:35:18'),
 (50, 1, 'invoices', 'NEW', 8, '2014-03-24 00:35:18'),
 (51, 1, 'invoices', 'PUT', 8, '2014-03-24 00:47:05'),
-(52, 1, 'invoices', 'PUT', 8, '2014-03-24 00:48:35');
+(52, 1, 'invoices', 'PUT', 8, '2014-03-24 00:48:35'),
+(53, 1, 'items', 'PUT', 6, '2014-03-24 11:50:05'),
+(54, 1, 'items', 'PUT', 9, '2014-03-24 11:50:11');
 
 -- --------------------------------------------------------
 

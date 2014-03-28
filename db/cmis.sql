@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 24 日 00:40
+-- 生成日期: 2014 年 03 月 28 日 06:32
 -- 服务器版本: 5.5.28
 -- PHP 版本: 5.4.24
 
@@ -29,10 +29,12 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `assets`;
 CREATE TABLE `assets` (
   `aID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `dID` int(10) unsigned NOT NULL COMMENT '出入库ID',
+  `iID` int(10) unsigned NOT NULL COMMENT '货物ID',
+  `vID` int(10) unsigned NOT NULL COMMENT '发票ID',
   `assetno` varchar(10) DEFAULT NULL COMMENT '固定资产统一编号',
   `internalno` varchar(10) NOT NULL COMMENT '校内固定资产编号',
   `departno` varchar(50) DEFAULT NULL COMMENT '电教资产编号',
+  `isin` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否在账上',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`aID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='固定资产表';
