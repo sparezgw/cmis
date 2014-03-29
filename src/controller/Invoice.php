@@ -53,7 +53,7 @@ class Invoice extends Controller {
         foreach ($ss as $es)
           $sarr[$es->sID] = $es->name;
         $f3->set('ss', $sarr);
-        $f3->set('vs', $v->find());
+        $f3->set('vs', $v->find(NULL,array('order'=>'invoicedate')));
         $f3->set('page',
           array(
             "title"=>"发票浏览",
@@ -72,13 +72,26 @@ class Invoice extends Controller {
         $items = substr($v->items, 1, strlen($v->items)-2);
         $f3->set('is',
           $this->db->exec(
-            'SELECT depots.amount,price,name,brand,type
+            'SELECT depots.iID,depots.amount,price,name,brand,type
             FROM depots
             LEFT JOIN items
             ON depots.iID = items.iID
             WHERE dID in ('.$items.')'
           )
         );
+        if(!empty($v->payment)) {
+          $pay = json_decode($v->payment,true);
+          $method = key($pay);
+          $cid = $pay[$method];
+          if ($method == 'c') {
+            $c = new DB\SQL\Mapper($this->db,'checks');
+            $c->load(array('cID=?', $cid));
+            $details = $c->invoicedate." ".$c->checkno." ".$c->purpose." ".$c->money;
+          }
+          $f3->set('v.p_m', $method);
+          $f3->set('v.p_id', $cid);
+          $f3->set('v.p_d', $details);
+        }
         $f3->set('page',
           array(
             "title"=>"发票明细",
@@ -163,7 +176,8 @@ class Invoice extends Controller {
     if($v->dry()) $f3->error(404);
     else {
       $v->copyFrom('POST');
-      $v->payment = json_encode(array($f3->get('POST.p_m')=>$f3->get('POST.p_id')));
+      if(empty($v->payment))
+        $v->payment = json_encode(array($f3->get('POST.p_m')=>$f3->get('POST.p_id')));
       $v->save();
     }
     //记录日志

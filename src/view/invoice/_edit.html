@@ -33,7 +33,7 @@
           </div>
           <label for="projectno" class="col-sm-1 control-label">政采编号</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" name="projectno" value="{{@v.projectno}}" placeholder="政采计划编号" />
+            <input type="text" class="form-control" name="projectno" <check if="{{!empty(@v.projectno)}}"><true>value="{{@v.projectno}}" disabled</true><false>placeholder="政采计划编号"</false></check> />
           </div>
         </div>
         <div class="form-group">
@@ -53,8 +53,8 @@
                 <tbody>
 <repeat group="{{ @is }}" value="{{ @i }}">
                   <tr>
-                    <th><a class="text-success"><span class="glyphicon glyphicon-ok"></span></a></th>
-                    <td>{{@i.name}} {{@i.brand}} {{@i.type}}</td>
+                    <th><a class="text-success"><span class="glyphicon glyphicon-check"></span></a></th>
+                    <td><a href="d/l/{{@i.iID}}">{{@i.name}} {{@i.brand}} {{@i.type}}</a></td>
                     <td>{{@i.amount}}</td>
                     <td>{{@i.price}}</td>
                     <td>{{@i.amount*@i.price}}</td>
@@ -68,18 +68,25 @@
         <div class="form-group">
           <label for="p_m" class="col-sm-1 control-label">支付方式</label>
           <div class="col-sm-2">
-            <select class="form-control" name="p_m" required>
+            <select class="form-control" name="p_m" <check if="{{isset(@v.p_m)}}"><true>disabled</true><false>required</false></check>>
               <option value="">选择支付方式...</option>
 <repeat group="{{ array_keys(@pay) }}" value="{{ @p }}">
-              <option value="{{ @p }}">{{ @pay[@p] }}</option>
+              <option value="{{ @p }}"<check if="{{isset(@v.p_m)&&@v.p_m==@p}}"> selected</check>>{{ @pay[@p] }}</option>
 </repeat>
             </select>
           </div>
           <div class="col-sm-5">
-            <select class="form-control" name="p_id" placeholder="选择支付结果..." required>
+            <select class="form-control" name="p_id" placeholder="选择支付结果..." <check if="{{isset(@v.p_id)}}"><true>disabled>
+              <option value="{{@v.p_id}}" selected>{{@v.p_d}}</option>
+</true><false>required>
+</false></check>
             </select>
           </div>
+<check if="{{!isset(@v.payment)}}"><true>
           <div><button class="btn btn-info" id="new">新增支付结果</button></div>
+</true><false>
+          <div><a class="btn btn-info" href="c/{{@v.p_id}}" id="view">查看支付结果</a></div>
+</false></check>
         </div>
         <div class="form-group">
           <label for="memo" class="col-sm-1 control-label">备注</label>

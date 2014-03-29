@@ -26,8 +26,8 @@
             <td>{{ @v.money }}</td>
             <td>{{ @ss[@v.sID] }}</td>
             <td><check if="{{!empty(@v.payment)}}">
-<set p="{{json_decode(@v.payment,true)}}" k="{{key(@p)}}" />
-<a href="{{@k}}/{{@p[@k]}}"><check if="{{@k=='c'}}"><true>支票方式</true><false>现金</false></check></a></check></td>
+<true><set p="{{json_decode(@v.payment,true)}}" k="{{key(@p)}}" />
+<a href="{{@k}}/{{@p[@k]}}"><check if="{{@k=='c'}}"><true>支票方式</true><false>现金</false></check></a></true><false>未支付</false></check></td>
             <td>{{ @v.memo }}</td>
           </tr>
 </repeat>
