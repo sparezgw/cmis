@@ -79,7 +79,7 @@ class Invoice extends Controller {
             WHERE dID in ('.$items.')'
           )
         );
-        if(!empty($v->payment)) {
+        if(!empty($v->payment)) { // 如果已经选择了支付方式，显示相应信息
           $pay = json_decode($v->payment,true);
           $method = key($pay);
           $cid = $pay[$method];
@@ -115,21 +115,6 @@ class Invoice extends Controller {
         );
         break;
     }
-
-    // } elseif ($cid == 'l') {
-    // } elseif (is_numeric($cid)) {
-    //   $c->load(array('cID=?', $cid));
-    //   if ($c->dry()) $f3->error(404);
-    //   else $c->copyto('c');
-    //   $f3->set('ss', $ss);
-    //   $f3->set('page',
-    //     array(
-    //       "title"=>"支票领取",
-    //       "view"=>"check/_edit.html",
-    //       "plugin"=>"selectize",
-    //       "js"=>"select"
-    //     )
-    //   );
   }
 
   function post($f3) {

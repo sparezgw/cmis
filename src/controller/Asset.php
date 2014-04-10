@@ -14,7 +14,16 @@ class Asset extends Controller {
   function get($f3) {
     $a = $this->a;
     $aid = $f3->get('PARAMS.aid');
-    if (empty($aid)) {
+    if ($f3->exists('PARAMS.vid')&&$f3->exists('PARAMS.iid')) {
+      $f3->set('page', 
+        array(
+          "title"=>"固定资产明细",
+          "view"=>"asset/_view.html",
+          "plugin"=>"selectize",
+          "js"=>"select"
+        )
+      );
+    } else if (empty($aid)) {
       $f3->set('page', 
         array(
           "title"=>"固定资产入账",
