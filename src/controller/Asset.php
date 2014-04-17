@@ -14,7 +14,9 @@ class Asset extends Controller {
   function get($f3) {
     $a = $this->a;
     $aid = $f3->get('PARAMS.aid');
-    if ($f3->exists('PARAMS.vid')&&$f3->exists('PARAMS.iid')) {
+    $vid = $f3->get('PARAMS.vid');
+    $iid = $f3->get('PARAMS.iid');
+    if (!empty($vid)&&!empty($iid)) {
       $f3->set('page', 
         array(
           "title"=>"固定资产明细",
@@ -23,13 +25,13 @@ class Asset extends Controller {
           "js"=>"select"
         )
       );
-    } else if (empty($aid)) {
+    } elseif (empty($aid)) {
       $f3->set('page', 
         array(
           "title"=>"固定资产入账",
           "view"=>"asset/_new.html",
           "plugin"=>"selectize",
-          "js"=>"select"
+          "js"=>"asset"
         )
       );
     } elseif ($aid=='l') {
@@ -59,37 +61,15 @@ class Asset extends Controller {
 
   function post($f3) {
     if(!$this->doit($f3, 4)) $f3->error(401, $this->r);
-    $s = $this->s;
-    $sid = $f3->get('PARAMS.sid');
-    $l = array("table"=>'suppliers', "op"=>'NEW');
-    if (!empty($sid)) {
-      $s->load(array('sID=?', $sid));
-      $l['op'] = "PUT";
-    }
-    $s->copyFrom('POST');
-    $s->save();
+    $a = $this->a;
+    $a->copyFrom('POST');
+    $a->save();
 
-    $l['opID'] = $s->sID;
-    $this->writelog($f3, $l);
+    $this->writelog($f3, array("table"=>'asset', "op"=>'NEW', "opID"=>$a->sID));
 
-    $f3->reroute('/s');
+    $f3->reroute('/a/l');
   }
 
-  function delete($f3) {
-    if(!$this->doit($f3, 4)) {
-      // $f3->set('ONERROR', $this->onerror($f3));
-      $f3->error(401, $this->r);
-    }
-      $s = $this->s;
-    $sid = $f3->get('PARAMS.sid');
-    if (!empty($sid)) $s->load(array('sID=?', $sid));
-    else $f3->error(404);
-    $s->erase();
-
-    $this->writelog($f3, array("table"=>'suppliers', "op"=>'DEL', "opID"=>$sid));
-
-    $f3->reroute('/s');
-  }
 
 }
 ?>

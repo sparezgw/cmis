@@ -19,8 +19,33 @@ class Invoice extends Controller {
     $i = new DB\SQL\Mapper($this->db,'items');
     $is = $i->select('iID,name,brand,type');
     switch (TRUE) {
-      case ($vid == 'i'): // 新发票页面，添加新设备窗口内容
-        $f3->set('page.single', 'invoice/_new_item.html');
+      case (substr($vid,0,1) == 'i'): 
+        $no = $f3->get('GET.vno');
+        if (empty($no))
+          // 新发票页面，添加新设备窗口内容
+          $f3->set('page.single', 'invoice/_new_item.html');
+        else {
+          // 根据GET到的vID，查询发票中的设备列表
+          $v->load(array('invoiceno=?', $no));
+          if ($v->dry()) break;
+          $items = substr($v->items, 1, strlen($v->items)-2);
+          $is = $this->db->exec(
+            'SELECT depots.iID,name,brand,type
+            FROM depots
+            LEFT JOIN items
+            ON depots.iID = items.iID
+            WHERE dID in ('.$items.')'
+          );
+          // 将查询结果转为数组
+          foreach ($is as $ii) {
+            $ia[] = array(
+              "value"=>$ii['iID'],
+              "text"=>$ii['name']." ".$ii['brand']." ".$ii['type']
+            );
+          }
+          $re = json_encode($ia);
+          $f3->set('page.json', $re);
+        }
         break;
       case (substr($vid,0,1) == 'p'): // 获取支票或者现金相关数据 JSON
         $method = $f3->get('GET.m');
@@ -43,21 +68,44 @@ class Invoice extends Controller {
           }
           $re = json_encode($carr);
         } else {
-          # code...
+          $h = new DB\SQL\Mapper($this->db,'cash');
+          $hs = $h->select('*',
+            array('money>=? and datetime>=?', $f3->get('GET.y'), $f3->get('GET.d')),
+            array(
+              'order' => 'hID',
+              'limit' => 5,
+              'offset' => 0
+              )
+            );
+          $harr = array();
+          foreach ($hs as $hh) {
+            $harr[] = array(
+              "value"=>$hh->hID,
+              "text"=>substr($hh->datetime,0,10)." ".$hh->money." ".$hh->refno
+            );
+          }
+          $re = json_encode($harr);
         }
         
         $f3->set('page.json', $re);
         break;
-      case ($vid == 'l'): // 发票列表
+      case ($vid == 'l' || !$f3->devoid('PARAMS.page')): // 发票列表
+        $page = $f3->get('PARAMS.page');
+        if (empty($page)) $page = 1;
         $sarr = array();
         foreach ($ss as $es)
           $sarr[$es->sID] = $es->name;
         $f3->set('ss', $sarr);
-        $f3->set('vs', $v->find(NULL,array('order'=>'invoicedate')));
+        $vs = $v->paginate($page-1,$f3->get('ep'),NULL,array('order'=>'invoicedate'));
+        $f3->set('vs', $vs['subset']);
         $f3->set('page',
           array(
             "title"=>"发票浏览",
-            "view"=>"invoice/_list.html"
+            "view"=>"invoice/_list.html",
+            "plugin"=>"selectize",
+            "js"=>"select",
+            "count"=>$vs['count'],
+            "pos"=>$vs['pos']
           )
         );
         break;
@@ -82,14 +130,18 @@ class Invoice extends Controller {
         if(!empty($v->payment)) { // 如果已经选择了支付方式，显示相应信息
           $pay = json_decode($v->payment,true);
           $method = key($pay);
-          $cid = $pay[$method];
-          if ($method == 'c') {
+          $id = $pay[$method];
+          if ($method == 'c') { //支票
             $c = new DB\SQL\Mapper($this->db,'checks');
-            $c->load(array('cID=?', $cid));
+            $c->load(array('cID=?', $id));
             $details = $c->invoicedate." ".$c->checkno." ".$c->purpose." ".$c->money;
+          } elseif ($method == 'h') { //刷卡现金
+            $h = new DB\SQL\Mapper($this->db,'cash');
+            $h->load(array('hID=?', $id));
+            $details = substr($h->datetime,0,10)." ".$h->money." ".$h->refno;
           }
           $f3->set('v.p_m', $method);
-          $f3->set('v.p_id', $cid);
+          $f3->set('v.p_id', $id);
           $f3->set('v.p_d', $details);
         }
         $f3->set('page',

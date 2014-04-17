@@ -3,52 +3,46 @@
       </div>
       <form class="form-horizontal rest" role="form" method="post">
         <div class="form-group">
-          <label for="name" class="col-sm-1 control-label">设备</label>
-          <div class="col-sm-5">
-            <input type="text" class="form-control" name="name"<check if="{{ isset(@i) }}"> value="{{ @i.name }}"</check> placeholder="产品名称" required autofocus />
+          <label for="invoiceno" class="col-md-1 control-label">发票</label>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="invoiceno" placeholder="输入购买设备的发票号" required />
+            <input type="hidden" name="vID" value="" />
           </div>
-          <label for="tID" class="col-sm-1 control-label">产品分类</label>
-          <div class="col-sm-5">
-            <select class="form-control" name="tID" placeholder="选择产品分类..." required>
-              <option value="">选择产品分类...</option>
-<repeat group="{{ @its }}" value="{{ @it }}">
-              <option value="{{ @it.tID }}"<check if="{{ isset(@i) && @it.tID==@i.tID }}"> selected</check>>{{ @it.name }}</option>
-</repeat>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-info btn-block">查询</button>
+          </div>
+          <label for="iID" class="col-md-1 control-label">设备列表</label>
+          <div class="col-md-4">
+            <select class="form-control" name="iID" disabled>
+              <option value="">选择具体设备...</option>
             </select>
           </div>
-          
         </div>
         <div class="form-group">
-          <label for="brand" class="col-sm-1 control-label">品牌</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control" name="brand"<check if="{{ isset(@i) }}"> value="{{ @i.brand }}"</check> placeholder="品牌" required />
+          <label for="assetno" class="col-md-1 control-label">国标编号</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" name="assetno" placeholder="固定资产国标编号" />
           </div>
-          <label for="type" class="col-sm-1 control-label">型号</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" name="type"<check if="{{ isset(@i) }}"> value="{{ @i.type }}"</check> placeholder="型号" required />
+          <label for="internalno" class="col-md-1 control-label">校内编号</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" name="internalno" placeholder="校内固定资产编号" required />
           </div>
-          <label for="unit" class="col-sm-1 control-label">单位</label>
-          <div class="col-sm-2">
-            <input type="text" class="form-control" name="unit"<check if="{{ isset(@i) }}"> value="{{ @i.unit }}"</check> placeholder="单位" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="memo" class="col-sm-1 control-label">备注</label>
-          <div class="col-sm-11">
-            <textarea class="form-control" rows="5" name="memo" placeholder="备注"><check if="{{ isset(@i) }}">{{ @i.memo }}</check></textarea>
+          <label for="departno" class="col-md-1 control-label">部门编号</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" name="departno" placeholder="信息中心固定资产编号" />
           </div>
         </div>
         <div class="form-group">
-          <input type="hidden" name="_method" value="{{ @page.method }}" />
-          <div class="col-sm-offset-7 col-sm-1">
-            <check if="{{ isset(@i) }}">
-            <button type="button" class="btn btn-danger btn-block">删除</button>
-            </check>
+          <label for="memo" class="col-md-1 control-label">备注</label>
+          <div class="col-md-11">
+            <textarea class="form-control" rows="3" name="memo" placeholder="备注"></textarea>
           </div>
-          <div class="col-sm-2">
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-8 col-md-2">
             <a type="button" href="javascript:history.back();" class="btn btn-default btn-block">返回</a>
           </div>
-          <div class="col-sm-2">
+          <div class="col-md-2">
             <button type="submit" class="btn btn-primary btn-block">保存</button>
           </div>
         </div>
