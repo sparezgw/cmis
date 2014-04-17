@@ -12,10 +12,8 @@
             <th>开票日期</th>
             <th>支付账户</th>
             <th>金额</th>
-            <th>供应商</th>
             <th>支付用途</th>
             <th>领取日期</th>
-            <th>领取人</th>
             <th>备注</th>
           </tr>
         </thead>
@@ -26,12 +24,23 @@
             <td>{{ @c.invoicedate }}</td>
             <td>{{ @ch[@c.holder] }}</td>
             <td>{{ @c.money }}</td>
-            <td>{{ @ss[@c.sID] }}</td>
             <td>{{ @c.purpose }}</td>
             <td>{{ @c.duedate }}</td>
-            <td>{{ @c.receiptor }}</td>
             <td>{{ @c.memo }}</td>
           </tr>
 </repeat>
         </tbody>
       </table>
+      <div>
+        <ul class="pagination">
+          <li<check if="{{@page.pos==0}}"><true> class="disabled"><span>&laquo;</span></true><false>><a href="c/l/{{@page.pos}}">&laquo;</a></false></check></li>
+<loop from="{{@p=1}}" to="{{@p<=@page.count}}" step="{{@p++}}">
+<check if="@p==@page.pos+1">
+          <true><li class="active"><span>{{@p}}</span></li>
+</true><false>
+          <li><a href="c/l/{{@p}}">{{@p}}</a></li>
+</false></check>
+</loop>
+          <li<check if="{{@page.pos==@page.count-1}}"><true> class="disabled"><span>&raquo;</span></true><false>><a href="c/l/{{@page.pos+2}}">&raquo;</a></false></check></li>
+        </ul>
+      </div>

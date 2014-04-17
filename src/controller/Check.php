@@ -14,39 +14,44 @@ class Check extends Controller {
   function get($f3) {
     $c = $this->c;
     $s = new DB\SQL\Mapper($this->db,'suppliers');
-    $ss = $s->select('sID,name');
     $cid = $f3->get('PARAMS.cid');
-    if (empty($cid)) {
-      $f3->set('ss', $ss);
-      $f3->set('page',
-        array(
-          "title"=>"新支票",
-          "view"=>"check/_new.html",
-          "plugin"=>"selectize",
-          "js"=>"select"
-        )
-      );
-    } elseif ($cid == 'l') {
-      $sarr = array();
-      foreach ($ss as $es)
-        $sarr[$es->sID] = $es->name;
-      $f3->set('ss', $sarr);
-      $f3->set('cs', $c->find());
+     if ($cid == 'l' || !$f3->devoid('PARAMS.page')) {
+      $page = $f3->get('PARAMS.page');
+      if (empty($page)) $page = 1;
+      // $f3->set('cs', $c->select(
+      //   'cID,checkno,holder,invoicedate,money,purpose,duedate,memo',
+      //   NULL,
+      //   array('order'=>'invoicedate'))
+      // );
+      $cs = $c->paginate($page-1,$f3->get('ep'),NULL,array('order'=>'invoicedate'));
+      $f3->set('cs', $cs['subset']);
       $f3->set('page',
         array(
           "title"=>"支票浏览",
-          "view"=>"check/_list.html"
+          "view"=>"check/_list.html",
+          "count"=>$cs['count'],
+          "pos"=>$cs['pos']
         )
       );
     } elseif (is_numeric($cid)) {
       $c->load(array('cID=?', $cid));
       if ($c->dry()) $f3->error(404);
       else $c->copyto('c');
-      $f3->set('ss', $ss);
+      $f3->set('ss', $s->select('sID,name'));
       $f3->set('page',
         array(
           "title"=>"支票领取",
           "view"=>"check/_edit.html",
+          "plugin"=>"selectize",
+          "js"=>"select"
+        )
+      );
+    } elseif (empty($cid)) {
+      $f3->set('ss', $s->select('sID,name'));
+      $f3->set('page',
+        array(
+          "title"=>"新支票",
+          "view"=>"check/_new.html",
           "plugin"=>"selectize",
           "js"=>"select"
         )

@@ -41,11 +41,11 @@
         <div class="form-group">
           <label for="duedate" class="col-sm-1 control-label">领取日期</label>
           <div class="col-sm-3">
-            <input type="date" class="form-control" name="duedate" value="{{@c.duedate}}" required />
+            <input type="date" class="form-control" name="duedate" <check if="{{!empty(@c.duedate)}}"><true>value="{{@c.duedate}}" disabled</true><false>value="" required</false></check> />
           </div>
           <label for="receiptor" class="col-sm-1 control-label">领取人</label>
           <div class="col-sm-2">
-            <input type="text" class="form-control" name="receiptor" placeholder="领取人" value="{{@c.receiptor}}" required />
+            <input type="text" class="form-control" name="receiptor" <check if="{{!empty(@c.receiptor)}}"><true>value="{{@c.receiptor}}" disabled</true><false>placeholder="领取人" required</false></check> />
           </div>
         </div>
         <div class="form-group">

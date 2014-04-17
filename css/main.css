@@ -66,3 +66,15 @@ h1, h2, h3, h4 {
 .all>tbody>tr>th {
   width: 120px;
 }
+
+.condition {
+  /*vertical-align: middle;*/
+  padding-bottom: 15px;
+}
+.condition label {
+  padding-top: 5px;
+}
+
+.pagination {
+  margin: 0;
+}

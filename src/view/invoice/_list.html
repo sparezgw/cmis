@@ -3,6 +3,13 @@
           <a type="button" href="v" class="btn btn-primary pull-right">
             <span class="glyphicon glyphicon-plus"></span> 新增
           </a>
+          <div class="col-sm-2 pull-right">
+            <select class="form-control" name="holder">
+              <option value="">年份...</option>
+              <option value="2014" selected>2014年</option>
+              <option value="2015">2015年</option>
+            </select>
+          </div>
         </h1>
       </div>
       <table class="table table-hover">
@@ -27,9 +34,22 @@
             <td>{{ @ss[@v.sID] }}</td>
             <td><check if="{{!empty(@v.payment)}}">
 <true><set p="{{json_decode(@v.payment,true)}}" k="{{key(@p)}}" />
-<a href="{{@k}}/{{@p[@k]}}"><check if="{{@k=='c'}}"><true>支票方式</true><false>现金</false></check></a></true><false>未支付</false></check></td>
+<a href="{{@k}}/{{@p[@k]}}"><check if="{{@k=='c'}}"><true>支票</true><false>现金</false></check></a></true><false>未支付</false></check></td>
             <td><check if="{{mb_strlen(@v.memo)>20}}"><true>{{ mb_substr(@v.memo,0,20)."..." }}</true><false>{{@v.memo}}</false></check></td>
           </tr>
 </repeat>
         </tbody>
       </table>
+      <div>
+        <ul class="pagination">
+          <li<check if="{{@page.pos==0}}"><true> class="disabled"><span>&laquo;</span></true><false>><a href="v/l/{{@page.pos}}">&laquo;</a></false></check></li>
+<loop from="{{@p=1}}" to="{{@p<=@page.count}}" step="{{@p++}}">
+<check if="@p==@page.pos+1">
+          <true><li class="active"><span>{{@p}}</span></li>
+</true><false>
+          <li><a href="v/l/{{@p}}">{{@p}}</a></li>
+</false></check>
+</loop>
+          <li<check if="{{@page.pos==@page.count-1}}"><true> class="disabled"><span>&raquo;</span></true><false>><a href="v/l/{{@page.pos+2}}">&raquo;</a></false></check></li>
+        </ul>
+      </div>
