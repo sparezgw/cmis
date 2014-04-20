@@ -55,6 +55,7 @@ class Item extends Controller {
         );
         break;
       case ($iid=='a'): //URI: /i/a
+        // 显示所有设备的库存数量
         $f3->set('its', $this->ita);
         $f3->set('items', $i->select('iID,tID,name,brand,type,amount'));
         $f3->set('page', 
@@ -74,7 +75,7 @@ class Item extends Controller {
         foreach ($is as $i) {
           $ei = array();
           $ei['iID'] = $i->iID;
-          $ei['itemtype'] = $ita[$i->tID];
+          $ei['itemtype'] = $this->ita[$i->tID];
           $ei['name'] = $i->name;
           $ei['brand'] = $i->brand;
           $ei['type'] = $i->type;
@@ -187,12 +188,4 @@ class Item extends Controller {
     $this->ita = $ita;
   }
 
-  function search($f3) {
-    $i = $this->i;
-
-    
-
-    $tid = $f3->get('PARAMS.id');
-    
-  }
 }

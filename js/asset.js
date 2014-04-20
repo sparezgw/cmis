@@ -15,7 +15,8 @@ $("button.btn-info").click(function() {
       dataType: 'json',
       success: function(results) {
         asset_item.enable();
-        callback(results);
+        callback(results.items);
+        $("input[name='vID']").val(results.vID);
       },
       error: function() {
         callback();

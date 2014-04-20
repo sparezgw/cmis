@@ -22,10 +22,10 @@ class Invoice extends Controller {
       case (substr($vid,0,1) == 'i'): 
         $no = $f3->get('GET.vno');
         if (empty($no))
-          // 新发票页面，添加新设备窗口内容
+          // 新发票页面，添加新设备窗口内容 v/i
           $f3->set('page.single', 'invoice/_new_item.html');
         else {
-          // 根据GET到的vID，查询发票中的设备列表
+          // 根据GET到的vID，查询发票中的设备列表 v/i?vno=0
           $v->load(array('invoiceno=?', $no));
           if ($v->dry()) break;
           $items = substr($v->items, 1, strlen($v->items)-2);
@@ -43,11 +43,11 @@ class Invoice extends Controller {
               "text"=>$ii['name']." ".$ii['brand']." ".$ii['type']
             );
           }
-          $re = json_encode($ia);
+          $re = json_encode(array("vID"=>$v->vID, "items"=>$ia));
           $f3->set('page.json', $re);
         }
         break;
-      case (substr($vid,0,1) == 'p'): // 获取支票或者现金相关数据 JSON
+      case (substr($vid,0,1) == 'p'): // 获取支票或者现金相关数据 v/p?
         $method = $f3->get('GET.m');
         if ($method == 'c') {
           $c = new DB\SQL\Mapper($this->db,'checks');
@@ -89,7 +89,7 @@ class Invoice extends Controller {
         
         $f3->set('page.json', $re);
         break;
-      case ($vid == 'l' || !$f3->devoid('PARAMS.page')): // 发票列表
+      case ($vid == 'l' || !$f3->devoid('PARAMS.page')): // 发票列表 v/l
         $page = $f3->get('PARAMS.page');
         if (empty($page)) $page = 1;
         $sarr = array();

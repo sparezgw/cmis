@@ -10,6 +10,10 @@ h1, h2, h3, h4 {
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
   vertical-align: middle;
 }
+.page-header {
+  margin-bottom: 10px;
+}
+
 .panel {
   margin: 0;
 }
@@ -64,7 +68,7 @@ h1, h2, h3, h4 {
 }
 
 .all>tbody>tr>th {
-  width: 120px;
+  width: 160px;
 }
 
 .condition {

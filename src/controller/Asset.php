@@ -35,7 +35,14 @@ class Asset extends Controller {
         )
       );
     } elseif ($aid=='l') {
-      $as = $a->find(); //所有供应商数据
+      $as = $this->db->exec(
+        'SELECT aID,a.vID,invoiceno,a.iID,name,brand,type,assetno,internalno,departno,a.memo
+        FROM assets as a
+        LEFT JOIN invoices as v 
+        ON a.vID = v.vID
+        LEFT JOIN items as i
+        ON a.iID = i.iID'
+      );
       $f3->set('as', $as);
       $f3->set('page', 
         array(
@@ -65,7 +72,7 @@ class Asset extends Controller {
     $a->copyFrom('POST');
     $a->save();
 
-    $this->writelog($f3, array("table"=>'asset', "op"=>'NEW', "opID"=>$a->sID));
+    $this->writelog($f3, array("table"=>'asset', "op"=>'NEW', "opID"=>$a->aID));
 
     $f3->reroute('/a/l');
   }

@@ -20,7 +20,7 @@
         <tbody>
 <repeat group="{{ @items }}" value="{{ @i }}">
           <tr>
-            <th>{{ @i.iID }}</th>
+            <th><a href="d/l/{{ @i.iID }}" class="text-info"><span class="glyphicon glyphicon-list"></span></a></th>
             <td><a href="i/{{ @i.iID }}">{{ @i.name }}</a></td>
             <td>{{ @its[@i.tID] }}</td>
             <td>{{ @i.brand }}</td>

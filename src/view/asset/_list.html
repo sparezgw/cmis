@@ -1,0 +1,33 @@
+      <div class="page-header">
+        <h1>{{ @page.title }}
+          <a type="button" href="/a" class="btn btn-primary pull-right">
+            <span class="glyphicon glyphicon-plus"></span> 新增
+          </a>
+        </h1>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>发票</th>
+            <th>设备</th>
+            <th>国标编号</th>
+            <th>校内编号</th>
+            <th>部门编号</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+<repeat group="{{ @as }}" value="{{ @a }}">
+          <tr>
+            <th>{{@a.aID}}</th>
+            <td><a href="v/{{@a.vID}}">{{@a.invoiceno}}</a></td>
+            <td><a href="d/l/{{@a.iID}}">{{@a.name}} {{@a.brand}} {{@a.type}}</a></td>
+            <td>{{@a.assetno}}</td>
+            <td>{{@a.internalno}}</td>
+            <td>{{@a.departno}}</td>
+            <td>{{@a.memo}}</td>
+          </tr>
+</repeat>
+        </tbody>
+      </table>
