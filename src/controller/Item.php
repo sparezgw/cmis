@@ -4,12 +4,12 @@
 */
 class Item extends Controller {
 
-  protected $i,$ita;
+  protected $i,$ta;
   
   function __construct() {
     parent::__construct();
     $this->i = new DB\SQL\Mapper($this->db,'items');
-    $this->itarray();
+    $this->itemtype_array();
   }
 
   /**
@@ -22,7 +22,7 @@ class Item extends Controller {
   function get($f3) {
     $i = $this->i;
     $t = new DB\SQL\Mapper($this->db,'itemtype');
-    $its = $t->find(); // all data from table itemtype
+    $ts = $t->find(); // all data from table itemtype
     $iid = $f3->get('PARAMS[1]');
     switch(TRUE) {
       case (is_numeric($iid)): //URI: /i/@iid
@@ -33,7 +33,7 @@ class Item extends Controller {
         } else {
           $i->copyto('i');
         }
-        $f3->set('its', $its);
+        $f3->set('its', $ts);
         $f3->set('page', 
           array(
             "title"=>"器材明细",
@@ -45,37 +45,40 @@ class Item extends Controller {
         );
         break;
       case ($iid=='l'): //URI: /i/l
-        $f3->set('its', $this->ita);
-        $f3->set('items', $i->select('iID,tID,name,brand,type,unit,memo'));
+        // 显示所有设备的列表
+        $f3->set('ts', $ts);
         $f3->set('page', 
           array(
             "title"=>"器材总览",
-            "view"=>"item/_list.html"
+            "view"=>"item/_list.html",
+            "plugin"=>"selectize",
+            "js"=>"list_item"
           )
         );
         break;
       case ($iid=='a'): //URI: /i/a
         // 显示所有设备的库存数量
-        $f3->set('its', $this->ita);
+        $f3->set('ts', $ts);
+        $f3->set('ta', $this->ta);
         $f3->set('items', $i->select('iID,tID,name,brand,type,amount'));
         $f3->set('page', 
           array(
             "title"=>"库存总表",
             "view"=>"item/_all.html",
-            "plugin"=>"selectize",
-            "js"=>"select"
+            "plugin"=>"selectize"
           )
         );
         break;
       case (substr($iid,0,1) == 't'):
         $tid = (int)substr($iid, 2);
-        $is = $i->select('iID,tID,name,brand,type,unit,memo',
-          array('tID=?', $tid));
-        $ir = array();
+        if ($tid!=0) $filter = array('tID=?', $tid);
+        else $filter = [];
+        $is = $i->select('iID,tID,name,brand,type,unit,memo', $filter);
+        $ir = [];
         foreach ($is as $i) {
           $ei = array();
           $ei['iID'] = $i->iID;
-          $ei['itemtype'] = $this->ita[$i->tID];
+          $ei['itemtype'] = $this->ta[$i->tID];
           $ei['name'] = $i->name;
           $ei['brand'] = $i->brand;
           $ei['type'] = $i->type;
@@ -85,18 +88,16 @@ class Item extends Controller {
           unset($ei);
         }
         $re = json_encode($ir);
-        // print_r($ir);
         $f3->set('page.json', $re);
         break;
       default: //URI: /i
-        $f3->set('its', $its);
+        $f3->set('its', $ts);
         $f3->set('page', 
           array(
             "title"=>"新增器材",
             "view"=>"item/_edit.html",
             "method"=>"POST",
-            "plugin"=>"selectize",
-            "js"=>"select"
+            "plugin"=>"selectize"
           )
         );
         break;
@@ -159,33 +160,13 @@ class Item extends Controller {
     $f3->reroute('/i/l');
   }
 
-  function test($f3) {
-    $i = $this->i;
+  protected function itemtype_array() {
     $t = new DB\SQL\Mapper($this->db,'itemtype');
-    $its = $t->find(); // all data from table itemtype
-    $iid = $f3->get('PARAMS.iid');
-    $itarr = array();
-    foreach ($its as $it)
-      $itarr[$it->tID] = $it->name;
-    $f3->set('ita', $itarr);
-    $f3->set('its', $its);
-    // $f3->set('items', $i->select('iID,tID,name,brand,type,unit,memo'));
-    $f3->set('page',
-      array(
-        "title"=>"器材总览",
-        "view"=>"item/_test.html",
-        "plugin"=>"selectize",
-        "js"=>"search"
-      )
-    );
-  }
-  function itarray() {
-    $t = new DB\SQL\Mapper($this->db,'itemtype');
-    $its = $t->find(); // all data from table itemtype
-    $ita = array();
-    foreach ($its as $it)
-      $ita[$it->tID] = $it->name;
-    $this->ita = $ita;
+    $ts = $t->find(); // all data from table itemtype
+    $ta = [];
+    foreach ($ts as $t)
+      $ta[$t->tID] = $t->name;
+    $this->ta = $ta;
   }
 
 }

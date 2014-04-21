@@ -3,6 +3,10 @@
           <div class="col-sm-2 pull-right">
             <select class="form-control" id="mID">
               <option value="">选择类别...</option>
+              <option value="0">所有类别</option>
+<repeat group="{{@ts}}" value="{{@t}}">
+              <option value="{{@t.tID}}">{{@t.name}}</option>
+</repeat>
             </select>
           </div>
         </h1>
@@ -27,13 +31,10 @@
                 <a href="d/l/{{ @i.iID }}" type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span> 流水</a>
             </div></th>
             <td><a href="i/{{ @i.iID }}">{{ @i.name }}</a></td>
-            <td>{{ @its[@i.tID] }}</td>
+            <td>{{ @ta[@i.tID] }}</td>
             <td>{{ @i.brand }}</td>
             <td>{{ @i.type }}</td>
             <td>{{ @i.amount }}</td>
-            <td>
-              
-            </td>
           </tr>
           </repeat>
         </tbody>

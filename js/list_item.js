@@ -1,13 +1,12 @@
-
-$("select[name='type']").selectize({
+$("#type").selectize({
   onChange: function(value) {
     if (!value.length) return;
-    $.get('i/s/'+value, "", function(data) {
+    $.get('i/t/'+value, "", function(data) {
       $("tbody").empty();
       var obj = JSON.parse(data);
       $.each(obj, function(index, val) {
         var tr = '<tr>';
-        tr = tr + '<th>' + val.iID + '</th>';
+        tr = tr + '<th><a href="d/l/' + val.iID + '" class="text-info"><span class="glyphicon glyphicon-list"></span></a></th>';
         tr = tr + '<td><a href="i/' + val.iID + '">' + val.name + '</a></td>';
         tr = tr + '<td>' + val.itemtype + '</td>';
         tr = tr + '<td>' + val.brand + '</td>';
@@ -17,12 +16,6 @@ $("select[name='type']").selectize({
         tr = tr + '</tr>'
         $("tbody").append(tr);
       });
-      // if(data) $("#error").html("<strong>错误！</strong>"+data).show('slow');
-      // else location.href="/home";  
     });
-
   }
 });
-
-
-$("select").selectize();

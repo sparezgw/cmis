@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 03 月 28 日 06:32
+-- 生成日期: 2014 年 04 月 21 日 01:31
 -- 服务器版本: 5.5.28
 -- PHP 版本: 5.4.24
 
@@ -37,7 +37,24 @@ CREATE TABLE `assets` (
   `isin` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否在账上',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`aID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='固定资产表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='固定资产表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cash`
+--
+
+DROP TABLE IF EXISTS `cash`;
+CREATE TABLE `cash` (
+  `hID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `money` decimal(9,2) unsigned NOT NULL COMMENT '金额',
+  `datetime` datetime NOT NULL COMMENT '刷卡时间',
+  `voucher` varchar(6) DEFAULT NULL COMMENT '凭证号',
+  `refno` varchar(12) NOT NULL COMMENT '参考号',
+  `memo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`hID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='现金刷卡表';
 
 -- --------------------------------------------------------
 
@@ -59,7 +76,7 @@ CREATE TABLE `checks` (
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`cID`),
   UNIQUE KEY `checkno_UNIQUE` (`checkno`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -79,7 +96,7 @@ CREATE TABLE `depots` (
   `detail` varchar(45) NOT NULL COMMENT '使用详细说明，新购时填写对应发票ID',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='出入库表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='出入库表';
 
 -- --------------------------------------------------------
 
@@ -97,10 +114,10 @@ CREATE TABLE `invoices` (
   `items` text NOT NULL COMMENT '货物明细 出入库ID',
   `money` decimal(9,2) unsigned NOT NULL COMMENT '发票金额',
   `projectno` varchar(25) DEFAULT NULL COMMENT '政采计划编号',
-  `payment` varchar(16) DEFAULT NULL COMMENT '支付方式',
+  `payment` varchar(100) DEFAULT NULL COMMENT '支付方式',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`vID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -119,7 +136,7 @@ CREATE TABLE `items` (
   `tID` tinyint(3) unsigned DEFAULT NULL COMMENT '货物类别ID',
   `memo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`iID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='货物表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='货物表';
 
 -- --------------------------------------------------------
 
@@ -132,7 +149,7 @@ CREATE TABLE `itemtype` (
   `tID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL COMMENT '货物类别名称',
   PRIMARY KEY (`tID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='货物类别表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='货物类别表';
 
 -- --------------------------------------------------------
 
@@ -149,7 +166,7 @@ CREATE TABLE `logs` (
   `opID` int(10) unsigned NOT NULL COMMENT '操作ID',
   `time` datetime NOT NULL COMMENT '操作时间',
   PRIMARY KEY (`lID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='日志表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='日志表';
 
 -- --------------------------------------------------------
 
@@ -162,7 +179,7 @@ CREATE TABLE `members` (
   `mID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL COMMENT '成员姓名',
   PRIMARY KEY (`mID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='成员表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='成员表';
 
 -- --------------------------------------------------------
 
@@ -178,7 +195,7 @@ CREATE TABLE `suppliers` (
   `taxid` varchar(25) NOT NULL,
   `memo` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`sID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -194,7 +211,7 @@ CREATE TABLE `users` (
   `mID` int(10) unsigned DEFAULT NULL COMMENT '用户姓名',
   `role` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '用户角色:',
   PRIMARY KEY (`uID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
